@@ -3,8 +3,8 @@ public:
     int minOperations(string s) {
         int ans1=0, ans2=0;
         int next ;
-        // the mistake of yours is actually we have to find minimum no of flips to make alternate bibary string
-        //count
+        // the mistake of yours is actually we have to find minimum no of flips to make alternate bibary string so we take two cases 
+        //counting if we take alternating string to start from 0
         next = 0;
         for(int i=0; i< s.size(); i++)
         {
