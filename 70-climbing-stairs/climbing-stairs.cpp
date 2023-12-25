@@ -5,23 +5,23 @@ public:
     //we take help of a storage data structure to update values of obtained function call values in it
 
 
-    int climbStairs(int n, unordered_map< int,int >& mpp){
+    int calculateSteps(int n, unordered_map< int,int >& map){
         // base case 
         if(n==0 || n==1)
         {
-            mpp[n] = 1;
-            return mpp[n] ;
+            map[n] = 1;
+            return map[n] ;
         } 
-        else if( mpp.find(n) == mpp.end())
+        else if( map.find(n) == map.end())
         {
-            mpp[n] = climbStairs(n-1, mpp) + climbStairs(n-2, mpp);
+            map[n] = calculateSteps(n-1, map) + calculateSteps(n-2, map);
         }
-        return mpp[n];
+        return map[n];
     }
 
     int climbStairs(int n) {
         unordered_map< int,int > mpp;
-        int res = climbStairs(n, mpp);
+        int res = calculateSteps(n, mpp);
         return res;
     }
 };
