@@ -1,7 +1,7 @@
 class Solution {
 public:
-
-    vector < string > mapping ={"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    // note the mapping
+    vector < string > mapping ={"abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
 
     vector<string> helper (string &digits)
     {
@@ -14,8 +14,8 @@ public:
         char ch = digits[0];
 
         string rest = digits.substr(1);
-
-        string mappedletters = mapping[ch-'0'];
+        // we will subtract '2' this time 
+        string mappedletters = mapping[ch-'2'];
 
         vector<string> curr;
 
