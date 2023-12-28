@@ -8,6 +8,7 @@ public:
         if(nums[n-1] > nums[n-2]) return n-1;
         //Applying Binary search without sorting :) ->
         int s=1, e= n-2;
+        //NOTE -> s is not taken as 0 to avoid unnecessary checking of 0th element smaller than 1st as its been done already in above if statement
         int mid = s+(e-s)/2;
         while(s <= e)
         {
