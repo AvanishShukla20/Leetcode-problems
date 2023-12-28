@@ -14,12 +14,8 @@ public:
             {
                 subSize.push_back(j-i);
                 i=j;
-                j++;
             }
-            else
-            {
                 j++;
-            }
         }
 
         // inserting size of last substring
