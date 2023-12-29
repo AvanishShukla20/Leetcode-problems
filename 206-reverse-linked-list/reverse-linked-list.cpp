@@ -10,17 +10,23 @@
  */
 class Solution {
 public:
-
-    
-    ListNode* reverseList(ListNode* head) {
-        if(head == NULL || head->next == NULL)
+    ListNode* reverseLogic(ListNode* head, ListNode* newHead) {
+        if(head->next==NULL)
         {
-            return head ;
+            head->next = newHead;
+            return head;
         }
-        ListNode* nextNode = head->next ;
-        head->next = NULL;
-        ListNode* received = reverseList(nextNode);
-        nextNode->next = head;
-        return received;
+        ListNode* getNode = reverseLogic(head->next,head);
+        head ->next = newHead;
+        newHead->next = NULL;
+        return getNode;
+
+    }
+    ListNode* reverseList(ListNode* head) {
+        if(head == NULL || head->next == NULL) return head;
+        //it is very important to realise WHY (head->next,head) is passed as argument 
+        return reverseLogic(head,head);
+
+        // earlier you were passing (head->next,NULL) here 
     }
 };
