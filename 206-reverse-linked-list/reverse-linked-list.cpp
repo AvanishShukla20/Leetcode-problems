@@ -24,7 +24,7 @@ public:
     }
     ListNode* reverseList(ListNode* head) {
         if(head == NULL || head->next == NULL) return head;
-        //it is very important to realise WHY (head->next,head) is passed as argument 
+        //it is very important to realise WHY (head,head) is passed as argument 
         return reverseLogic(head,head);
 
         // earlier you were passing (head->next,NULL) here 
