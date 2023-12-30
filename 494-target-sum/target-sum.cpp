@@ -7,10 +7,9 @@ public:
             if(count == target) return 1;
             else return 0;
         }
-
-        int x =nums[idx];
-        int sumWay  = CountWays(nums, idx+1, target, count + x);
-        int diffWay = CountWays(nums, idx+1, target, count - x);
+        
+        int sumWay  = CountWays(nums, idx+1, target, count + nums[idx]);
+        int diffWay = CountWays(nums, idx+1, target, count - nums[idx]);
 
         int totalWay = sumWay + diffWay ;
         return totalWay;
