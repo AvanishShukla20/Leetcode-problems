@@ -1,30 +1,26 @@
 class Solution {
 public:
-    string makeGood(string s) {
-     stack<char> st;
-     string ans = "";
-     int i=0;
-     while(i < s.size())
-     {
-        if(s[i] >= 'a' and s[i] <= 'z')
+    string giveGreat(int idx, string s)
+    {
+        if(idx == s.size())
         {
-            if(st.empty() || st.top() != abs(s[i]-32)) st.push(s[i]);
-            else if(!st.empty()) st.pop();
+            return "";
+        }
+        string rec = giveGreat(idx+1, s);
+        
+        //learn this technique You lacked
+
+        if(!rec.empty() && ( (s[idx]>='a' and s[idx]<='z' and rec[0] == abs(s[idx]-32)) || (s[idx]>='A' and s[idx]<='Z' and rec[0] == s[idx]+32)) )
+        {
+            rec.erase(0,1); //0 is the index to be deleted
         }
         else
         {
-            if(st.empty() || st.top() != (s[i]+32)) st.push(s[i]);
-            else if(!st.empty()) st.pop();
+            rec = s[idx] + rec; // this means if s[idx] = J and rec = k  then finally rec = "Jk"
         }
-         i++;
-     }
-
-     while(!st.empty())
-     {
-         ans = ans + st.top();
-         st.pop();
-     }
-     reverse(ans.begin(), ans.end());
-     return ans;  
+        return rec;   
+    }
+    string makeGood(string s) {
+        return giveGreat(0,s);
     }
 };
