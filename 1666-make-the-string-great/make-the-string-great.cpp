@@ -8,7 +8,7 @@ public:
         }
         string rec = giveGreat(idx+1, s);
         
-        //learn this technique You lacked
+        
 
         if(!rec.empty() && ( (s[idx]>='a' and s[idx]<='z' and rec[0] == abs(s[idx]-32)) || (s[idx]>='A' and s[idx]<='Z' and rec[0] == s[idx]+32)) )
         {
