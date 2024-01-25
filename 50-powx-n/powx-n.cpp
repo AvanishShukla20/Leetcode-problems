@@ -4,7 +4,7 @@ public:
     {
         if(n==0)
         {
-            return 1.0;
+            return 1;
         }
         double res = myPow(x, n/2);
 
