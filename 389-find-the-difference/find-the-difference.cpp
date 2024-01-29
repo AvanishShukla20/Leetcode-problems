@@ -1,20 +1,18 @@
 class Solution {
 public:
     char findTheDifference(string s, string t) {
-        char ans ;
-        unordered_map<char,int> m1;
-        unordered_map<char,int> m2;
-        
-        for(char ch1 : s) m1[ch1]++;
-        for(char ch2 : t) m2[ch2]++;
+        int xr = 0;
 
-        for(auto x2 : m2)
+        for(int i=0; i<s.size(); i++)
         {
-            if( x2.second != m1[x2.first] )
-            {
-                ans = x2.first;
-            }
+            xr ^= s[i]-'a';
         }
+
+        for(int i=0; i<t.size(); i++)
+        {
+            xr ^= t[i]-'a';
+        }
+        char ans = xr +'a';
         return ans;
-    }    
+    }
 };
