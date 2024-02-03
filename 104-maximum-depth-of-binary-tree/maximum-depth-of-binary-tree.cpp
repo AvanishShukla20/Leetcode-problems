@@ -11,22 +11,15 @@
  */
 class Solution {
 public:
-    void calculateDepth(TreeNode* curr, int count,int& ans)
-    {
-        if(curr->left == NULL and curr->right == NULL)
-        {
-            if(count > ans) ans = count;   
-            return;
-        }
 
-        if(curr->left != NULL)calculateDepth(curr -> left, count+1, ans);
-        if(curr->right != NULL)calculateDepth(curr -> right, count+1, ans); 
-    }
     int maxDepth(TreeNode* root) {
+        
         if(root == NULL) return 0;
-        int ans = 0, count = 1;
-        calculateDepth(root, count, ans);
-        return ans;
+
+        int left = maxDepth(root -> left);
+        int right = maxDepth(root -> right);
+        
+        return 1+ max(left, right);
         
         
     }
