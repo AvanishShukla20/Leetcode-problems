@@ -14,9 +14,8 @@ public:
         ListNode* low = head;
         ListNode* high = head;
 
-        while(high != NULL and high->next != NULL)
+        while(high != NULL && high->next != NULL)
         {
-            cout<<"low :"<<low->val<<"high :"<<high->val<<endl;
             low = low->next;
             high = high->next->next;
             if(low == high) return true;
