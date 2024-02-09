@@ -9,17 +9,28 @@
 class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
-        if(!head || !head->next ) return NULL;
+        if(head == NULL || head->next == NULL) return NULL;
 
-        ListNode* trav = head;
-        set<ListNode*>s;
+        ListNode* slow = head;
+        ListNode* fast = head;
 
-        while(trav != NULL)
+        while(fast && fast->next)
         {
-            if(s.find(trav) != s.end()) return trav;
-            else s.insert(trav);
-            trav = trav->next;
+            slow = slow->next;
+            fast = fast->next->next;
+            if(slow == fast)
+            {
+                //create new pointer at head
+                ListNode* tr = head;
+                while(tr != slow)
+                {
+                    tr = tr->next;
+                    slow = slow->next;
+                }
+                return tr;
+            }
         }
+
         return NULL;
     }
 };
