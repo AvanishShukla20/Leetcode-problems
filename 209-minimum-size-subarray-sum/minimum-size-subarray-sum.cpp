@@ -9,14 +9,11 @@ public:
             {
                 int size = j - i ;
                 ans = min(size, ans);
-                cout<<"ans :"<<ans<<" ";
                 sum -= nums[i];
-                cout<<"sum inside :"<<sum<<" ";
                 i++;
             }
             if(j < nums.size()){
                 sum += nums[j];
-                cout<<"sum :"<<sum<<endl;
                 j++;
             }
         }
