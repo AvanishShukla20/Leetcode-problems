@@ -13,8 +13,7 @@ public:
             pfSum += nums[i];
             int ele = nums[i];
 
-            int res = ele*i + (totalSum - pfSum) - ( (pfSum - ele + ele*(n  - i - 1)) );
-            nums[i] = res;
+            nums[i] = ele*i + (totalSum - pfSum) - ( (pfSum - ele + ele*(n  - i - 1)) );
         }
         return nums;
     }
