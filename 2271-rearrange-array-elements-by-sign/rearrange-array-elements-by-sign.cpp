@@ -3,30 +3,29 @@ public:
     vector<int> rearrangeArray(vector<int>& nums) {
         int n = nums.size();
 
-        queue<int> pos;
-        queue<int> neg;
+        vector<int> pos, neg;
+
         for(int i=0; i< n; i++)
         {
-            if(nums[i] > 0) pos.push(nums[i]);
-            else neg.push(nums[i]);
+            if(nums[i] > 0) pos.push_back(nums[i]);
+            else neg.push_back(nums[i]);
         }
         
-        bool pref = true;  // 0 -> positive preferred 
-                        // 1 -> negative preferred
+        /* 
+        Observation if index = even -> put positive 
+                                            else negative 
+        */
 
         for(int i = 0; i< n; i++)
         {
-            if(pref == true)
+            if(i%2 == 0)
             {
-                nums[i] = pos.front();
-                pos.pop();
+                nums[i] = pos[i/2];
             }
             else
             {
-                nums[i] = neg.front();
-                neg.pop();
+                nums[i] = neg[i/2];
             }
-            pref = !pref;
         }
         return nums;
 
