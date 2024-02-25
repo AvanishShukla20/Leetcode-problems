@@ -13,27 +13,22 @@ class Solution {
 public:
     int lHeight(TreeNode* curr)
     {
-        //iterative ->
-        int ans = 0;
-        while(curr)
-        {
-            ans++;
-            curr = curr->left;
-        }
-        return ans;
+        if(curr == NULL) return 0;
+        //recursive -> 
+        int received = lHeight(curr->left);
+        if(curr) received ++;
+        return received;
     }
 
     int rHeight(TreeNode* curr)
     {
-        //iterative ->
-        int ans = 0;
-        while(curr)
-        {
-            ans++;
-            curr = curr->right;
-        }
-        return ans;
+        // recursive
+        if(curr == NULL) return 0;
+        int received = rHeight(curr->right);
+        if(curr) received ++;
+        return received;
     }
+    
     int countNodes(TreeNode* root) {
         if(root == NULL) return 0;
 
