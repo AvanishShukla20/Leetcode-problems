@@ -44,7 +44,9 @@ public:
         if(leftHeight == rightHeight)
         {
             //no further countNodes function call 
-            return pow(2, leftHeight) - 1;
+            /* 0(n) -> return pow(2, leftHeight) - 1;*/
+            //O(1) ->
+            return (1<<leftHeight) - 1;
         }
         else
         {
