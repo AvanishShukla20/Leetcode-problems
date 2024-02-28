@@ -11,26 +11,30 @@
  */
 class Solution {
 public:
-    bool isPathExist(TreeNode* node, int target)
+    bool isleaf(TreeNode* node)
     {
-        if(node->left == NULL && node->right == NULL)
-        {
-            return (node->val == target) ? true : false;
-        }
-
-        /*
-        efficient and time saving technique
-        always remember -> subtract target by node's value whenever sending it to next
-        left or right call  
-        */
-        bool x = false,y = false;
-        if(node->left)  x = isPathExist(node->left, target - node->val);
-        if(node->right) y = isPathExist(node->right, target - node->val);
-
-        return x || y;
+        return node->left == NULL && node->right == NULL;
     }
+
     bool hasPathSum(TreeNode* root, int targetSum) {
-        if(root == NULL) return false;
-        return isPathExist(root,targetSum);
+        if(root == NULL) return {};
+        queue<pair<TreeNode*, int>> Q;
+        Q.push({root, root->val});
+        
+        while(!Q.empty())
+        {
+            int size = Q.size();
+            for(int i=1; i<=size; i++)
+            {
+                auto p = Q.front();
+                Q.pop();
+                TreeNode* curr = p.first;
+                int Sumsf =  p.second;
+                if(Sumsf == targetSum && isleaf(curr)) return true;
+                if(curr->left) Q.push({curr->left, Sumsf + curr->left->val});
+                if(curr->right) Q.push({curr->right, Sumsf + curr->right->val});
+            }
+        }
+        return false;
     }
 };
