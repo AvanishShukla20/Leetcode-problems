@@ -1,30 +1,36 @@
 class Solution {
 public:
     int furthestBuilding(vector<int>& heights, int bricks, int ladders) {
-        priority_queue< int, vector<int>, greater<int>> p;
-        /*min heap created -> stores in ascending order */
+        priority_queue<int, vector<int>, greater<int>> pq;
 
-        /*vector<int> is used to support as a container for ease of access priority queue elements
-         as priority queue is implemented using binary heap data structure  */
+        int jump;
+        int ans = 0;
 
-        int ans = 0 , n = heights.size();
-        for(int i = 0; i< n- 1 ; i++)
+        for(int i =0; i< heights.size() - 1; i++)
         {
-            //at every indx figure out all possible jumps 
-            // required to reach here prior to this index
-            int gap = heights[i+1] - heights[i];
-            if(gap > 0) p.push(gap);
-            /* if size of queue becomes greater than ladders it means we have to use bricks for smallest one*/
-            if(p.size() > ladders)
+            jump = heights[i+1] - heights[i];
+            if(jump <= 0) ans++;
+            else
             {
-                bricks -= p.top();
-                p.pop();
-            }
+                /*  greedily fill queue only upto size of no of ladders */
+                pq.push(jump);
 
-            if(bricks < 0) return i; 
+                /*  as soon as you get 1st jump that makes (pq.size() > ladders). You handle the min 
+                    jump currently heap has with the no of bricks available i.e 
+                    subtract the min jump from bricks .if difference less than zero we can,t handle the jumps currently in heap
+                    we return here .
+                */
+                
+                if(pq.size() > ladders)
+                {
+                    bricks -= pq.top();
+                    if(bricks < 0) return ans;
+                    pq.pop();
+                }
+                ans++;
+            }
         }
-        //if pointer reaches the last building idx
         
-        return heights.size() - 1;
+        return ans;
     }
 };
