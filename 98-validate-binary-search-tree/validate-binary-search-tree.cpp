@@ -11,21 +11,18 @@
  */
 class Solution {
 public:
-    bool isValid(TreeNode* root, long low, long high, bool t)
+    bool isValid(TreeNode* root, long low, long high)
     {
         if(root == NULL) return true;
-        else if(root->val > low && root->val < high) t = true;
-        else t = false;
+        if(root->val <= low || root->val >= high) return false;
 
-        bool t2 = isValid(root->left, low, root->val, t);
-        bool t3 = isValid(root->right, root->val, high, t);
+        bool t2 = isValid(root->left, low, root->val);
+        bool t3 = isValid(root->right, root->val, high);
 
-        return t && t2 && t3;
+        return t2 && t3;
     }
     bool isValidBST(TreeNode* root) {
         if(root == NULL) return true;
-        if(!root->left && !root->right) return true;
-        bool t;
-        return isValid(root, LONG_MIN, LONG_MAX,t);
+        return isValid(root, LONG_MIN, LONG_MAX);
     }
 };
