@@ -11,34 +11,36 @@
  */
 class Solution {
 public:
-    unordered_map<int, int> inorderIdx;
-    
-    TreeNode* createTree(int preStart, int preEnd, vector<int>& preorder, int inStart, int inEnd, vector<int>& inorder)
+    unordered_map<int, int> mpp;
+    TreeNode* constructTree(vector<int>& preorder, int pStart, int pEnd, vector<int>& inorder, int inStart, int inEnd)
     {
-        if(preEnd < preStart || inEnd < inStart) return NULL;
-        TreeNode* currRoot = new TreeNode(preorder[preStart]);
-
-        int rootIdx = inorderIdx[preorder[preStart]];
-        int nodesLeft = rootIdx - inStart;
-
-        currRoot -> left = createTree(preStart+1, preStart+nodesLeft, preorder,inStart ,rootIdx - 1 ,inorder);
-        currRoot -> right = createTree(preStart + nodesLeft + 1, preEnd, preorder, rootIdx+1, inEnd, inorder);
-
-        return currRoot;
-
-    }
-    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        
-        for(int i=0; i<inorder.size(); i++)
+        if(pStart > pEnd || inStart > inEnd)
         {
-            inorderIdx[inorder[i]] = i;
+            return NULL;
         }
+        TreeNode* root = new TreeNode(preorder[pStart]);
+        int idx = mpp[preorder[pStart]];
 
-        TreeNode* root = createTree(0,preorder.size() - 1, preorder, 0, inorder.size() - 1,inorder);
+        int numberofNodesOnLeftside  = idx - inStart;
+
+        TreeNode* leftsubTree = constructTree(preorder,pStart + 1, pStart + numberofNodesOnLeftside,inorder, inStart, idx - 1);
+
+        TreeNode* rightsubTree = constructTree(preorder,pStart + numberofNodesOnLeftside + 1, pEnd,inorder, idx + 1, inEnd);
+
+        root ->left = leftsubTree;
+        root->right = rightsubTree;
+
         return root;
 
 
-
-        
+    }
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        int n =  preorder.size(), m = inorder.size();
+        for(int i=0; i<inorder.size(); i++) 
+        {
+            mpp[inorder[i]] = i;
+        }
+        TreeNode* root = constructTree(preorder, 0, n-1, inorder, 0, m - 1);
+        return root;
     }
 };
