@@ -12,31 +12,33 @@
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
-        if(root == NULL) return {};
-
-        stack<TreeNode*> st;
+        if(!root) return {};
         vector<int> ans;
-        TreeNode* curr = root;
-        
-        //note this method OF USING A WHILE LOOP WITH ALWAYS TRUE CONDITION
-        while(true)
+        TreeNode* curr= root;
+        while(curr)
         {
-            if(curr != NULL)
+            
+            if(curr->left)
             {
-                st.push(curr);
-                curr = curr -> left;
+                TreeNode* leftchild = curr->left;
+                while(leftchild->right)
+                {
+                    leftchild = leftchild->right;
+                }
+
+                leftchild->right = curr;
+                /*delete connection and move to left*/
+
+                TreeNode* temp = curr;
+                curr = curr->left;
+                temp->left = NULL;
             }
             else
             {
-                //if curr is NULL
-                if(st.empty()) break;
-
-                ans.push_back(st.top()->val);
-
-                curr = st.top() -> right;
-
-                st.pop();
+                ans.push_back(curr->val);
+                curr = curr->right;
             }
+
         }
         return ans;
     }
