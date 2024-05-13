@@ -1,40 +1,43 @@
 class Solution {
 public:
-    void findCombi(int idx, int target, vector<int>& arr, vector<int>& capturedNums, vector<vector<int>>& ans)
+    /* Since this ques tells us that candidates is distinct That's why there is no chance of having a DUPLICATE valid Combination in our approach */
+
+    vector<vector<int>> ans;
+    void findValidCombinations(vector<int>& candidates, int target, int idx, vector<int>& validcandidate)
     {
-        if(idx == arr.size())
+
+        if(idx == candidates.size())
         {
             if(target == 0)
             {
-                ans.push_back(capturedNums);
-                return;
+                ans.push_back(validcandidate);
+                // we have not done pop_back here as this call will always be returned as a nonpick condition
             }
-            else
-            {
-                return;
-            }
+            return;
         }
+        
 
-        if(target >= arr[idx])
+        if(target - candidates[idx] >= 0)
         {
-        //PICK
-        capturedNums.push_back(arr[idx]);
-        findCombi(idx, target - arr[idx], arr, capturedNums, ans);
-        //pop the element from captured to make space and explore other elements also
-        capturedNums.pop_back();
+            validcandidate.push_back(candidates[idx]);
+            cout<<target<<" ";
+            findValidCombinations(candidates, target - candidates[idx], idx,validcandidate);
+            cout<<target<<endl;
+            validcandidate.pop_back();
         }
 
-        //NON PICK
-        findCombi(idx + 1, target, arr, capturedNums, ans);
 
+        // Why i am not doing any check of target below as i have done before ? ->
+        /* It is because this step does not affects the target at all */
+
+        /*NON-PICK*/ findValidCombinations(candidates, target , idx+1, validcandidate);
     }
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        //this ans will be returned
-        vector<vector<int>> ans;
-        //the data structure we will use to store the subsets formed at each stage
-        vector<int> ds;
-        findCombi(0, target, candidates,ds, ans);
 
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        if(candidates.size() == 0) return {};
+        vector<int> validcandidate;
+        int idx = 0;
+        findValidCombinations(candidates, target, idx, validcandidate);
         return ans;
     }
 };
