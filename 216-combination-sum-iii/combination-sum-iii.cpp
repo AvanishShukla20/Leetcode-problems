@@ -1,22 +1,13 @@
 class Solution {
 public:
     vector<vector<int>> container;
-    set<vector<int>> s;
 
     void solve(int target, int k, vector<int>& res, int chosen)
     {
         if(target < 0) return;
-        if(target == 0)
+        if(target == 0 && k == 0)
         {
-            if(k == 0)
-            {
-                sort(res.begin(), res.end());
-                if(!s.contains(res))
-                {
-                    container.push_back(res);
-                    s.insert(res);
-                }
-            }
+            container.push_back(res);
             return;
         }
         for(int choice = chosen + 1; choice <= 9; choice++)
