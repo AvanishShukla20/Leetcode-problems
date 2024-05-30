@@ -5,7 +5,7 @@ public:
         vector<vector<int>> adj(n);
         vector<int> indegree(n);
 
-        for(auto it : prerequisites)
+        for(auto& it : prerequisites)
         {
             adj[it[1]].push_back(it[0]);
             indegree[it[0]]++;
@@ -23,7 +23,7 @@ public:
             int frontV = Q.front();
             Q.pop();
             ans.push_back(frontV);
-            for(int it : adj[frontV])
+            for(int& it : adj[frontV])
             {
                 indegree[it]--;
                 if(indegree[it] == 0) Q.push(it);
