@@ -1,51 +1,45 @@
 class Solution {
 public:
-    bool dfs(int node, vector<vector<int>>& graph, vector<int>& vis, vector<int>&pathcovered, vector<int>& check)
-    {
-        vis[node] = 1;
-        pathcovered[node] = 1;
-
-        for(auto it : graph[node])
-        {
-            if(!vis[it])
-            {
-                if(dfs(it, graph, vis, pathcovered, check) == true)
-                {
-                    check[node] = 0;
-                    return true;
-                }
-            }
-            else if(pathcovered[it] == 1)
-            {
-                check[node] = 0;
-                return true;
-            }
-        }
-
-        check[node] = 1;
-        pathcovered[node] = 0;
-        return false;
-    }
     vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
-        int n= graph.size();
-        vector<int> vis(n,0);
-        vector<int> pathcovered(n, 0);
+        //reverse the connection to traverse through all the nodes using bfs
+        int n = graph.size();
+        vector<vector<int>> revgraph(n);
+        vector<int> indegree(n, 0);
+        queue<int> Q;
+        for(int u = 0; u<n; u++)
+        {
+            for(auto v : graph[u])
+            {
+                revgraph[v].push_back(u);
+                indegree[u]++;
+            }
+        }
+
+        for(int i=0; i<n; i++)
+        {
+            if(indegree[i] == 0) Q.push(i);
+        }
+
         vector<int> ans;
-        vector<int> check(n, 0);
-        for(int i =0; i<n ; i++)
+        //bfs kahn's-traversal
+
+        while(!Q.empty())
         {
-            if(!vis[i])
+            int frontV = Q.front();
+            Q.pop();
+            ans.push_back(frontV);
+
+            for(auto it : revgraph[frontV])
             {
-                dfs(i, graph, vis, pathcovered, check);
+                indegree[it]--;
+                if(indegree[it] == 0) Q.push(it);
             }
         }
-        for(int i = 0; i<n ; i++)
-        {
-            if(check[i])
-            {
-                ans.push_back(i);
-            }
-        }
+
+        sort(ans.begin(), ans.end());
         return ans;
+
+
+
     }
 };
