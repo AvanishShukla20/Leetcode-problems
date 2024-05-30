@@ -30,8 +30,7 @@ public:
             }
         }
 
-        if(ans.size() == n) return true;
-        else return false;
+        return ans.size() == n;
 
 
     }
