@@ -1,44 +1,31 @@
 class Solution {
 public:
     string reverseParentheses(string s) {
-        stack<char> st;
-        int n = s.size(), i = 0;
-        string temp;
-        while(i < n)
+        stack<int> st;
+        // here we are storing the idx of opening braces till seen in stack
+        int n =  s.size();
+        for(int i=0; i<n; i++)
         {
-            if(s[i] == ')')
+            if(s[i] == '(') st.push(i);
+            else if(s[i] == ')')
             {
-                temp = "";
-                while(!st.empty() && st.top() != '(')
-                {
-                    temp += st.top();
-                    st.pop();
-                }
+                int revBeginidx = st.top() + 1;
+                int revEndidx = i;
 
-                if(!st.empty())
-                {
-                    st.pop();
-                }
-
-                for(int j = 0; j < temp.size(); j++)
-                {
-                    st.push(temp[j]);
-                }
+                // error in line no 15 -> s.end()+ ... is not possible for reverse function
+                reverse(s.begin() +revBeginidx, s.begin() + revEndidx);
+                st.pop();
             }
-            else
-            {
-                st.push(s[i]);
-            }
-            i++;
         }
 
         string ans = "";
-        while(!st.empty())
+        for(int i=0; i<n; i++)
         {
-            ans += st.top();
-            st.pop();
+            if(s[i] == '(' || s[i] == ')') continue;
+            else ans += s[i];
         }
-        reverse(ans.begin(), ans.end());
         return ans;
+
+
     }
 };
