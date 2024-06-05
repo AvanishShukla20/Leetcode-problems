@@ -29,6 +29,8 @@ public:
             {
                 for(int j = 0; j < n ; j++)
                 {
+                    //if city is unreachable ...then continue ->
+                    if(costMatrix[i][intermediate] == 1e9 || costMatrix[intermediate][j] == 1e9) continue;
                     costMatrix[i][j] = min(costMatrix[i][j], costMatrix[i][intermediate] + costMatrix[intermediate][j]);
                 }
             }
