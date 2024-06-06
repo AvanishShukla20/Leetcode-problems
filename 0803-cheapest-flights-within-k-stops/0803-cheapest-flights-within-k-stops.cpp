@@ -2,8 +2,8 @@ class Solution {
 public:
     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
 
-        
-       priority_queue<pair<int,pair<int, int>>,  vector<pair<int,pair<int,int>>>, greater<pair<int,pair<int, int>>>> pq;
+        // we will have stops as the first priority here !! So, the stops will be self arranged in ascending order
+       queue<pair<int,pair<int, int>>> pq;
 
        vector<int> distance(n, 1e9);
 
@@ -24,7 +24,7 @@ public:
 
        while(!pq.empty())
        {
-        auto nodepair = pq.top();
+        auto nodepair = pq.front();
         // we will have stops as the first priority here !!
 
         int stops = nodepair.first;
