@@ -4,6 +4,7 @@
 # Array
 |  |
 | ------- |
+| [1044-find-common-characters](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1044-find-common-characters) |
 | [1753-path-with-minimum-effort](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1753-path-with-minimum-effort) |
 | [2478-longest-nice-subarray](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/2478-longest-nice-subarray) |
 # Bit Manipulation
@@ -56,3 +57,11 @@
 | ------- |
 | [0803-cheapest-flights-within-k-stops](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0803-cheapest-flights-within-k-stops) |
 | [1456-find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1456-find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance) |
+# Hash Table
+|  |
+| ------- |
+| [1044-find-common-characters](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1044-find-common-characters) |
+# String
+|  |
+| ------- |
+| [1044-find-common-characters](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1044-find-common-characters) |
