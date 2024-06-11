@@ -2,36 +2,40 @@ class Solution {
 public:
     vector<int> relativeSortArray(vector<int>& arr1, vector<int>& arr2) {
         map<int, int> mpp;
-        // Count occurrences of elements in arr1
-        for(auto p : arr1)
-        {
-            mpp[p]++;
-        }
-
+         
         vector<int> ans;
+        for(auto x : arr1) mpp[x]++;
 
-        for(int i=0; i<arr2.size(); i++)
+        int n = arr1.size(), m = arr2.size();
+
+        for(int i = 0; i  < m; i++)
         {
-            int m = mpp[arr2[i]];
-            while(m--)
+            int count = mpp[arr2[i]];
+
+            while(count != 0)
             {
                 ans.push_back(arr2[i]);
+                mpp[arr2[i]]--;
+                count--;
             }
-            //this is the thing jo bewakoof tum bhool gaye the to do-> 
-            mpp.erase(arr2[i]);
         }
 
-        //add remaining elements to  vector
-
-        for(auto x : mpp)
+         
+        for(auto it : mpp)
         {
-            int count = x.second;
-            while(count--)
+            if(it.second != 0)
             {
-                ans.push_back(x.first); 
-            } 
+                int count = it.second;
+                while(count != 0)
+                {
+                    ans.push_back(it.first);
+                    count--;
+                }
+            }
         }
 
+        
+        
         return ans;
     }
 };
