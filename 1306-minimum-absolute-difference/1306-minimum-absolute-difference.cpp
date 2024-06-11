@@ -9,7 +9,8 @@ public:
         for(int i=0; i < n-1; i++)
         {
             if(arr[i+1] - arr[i] < mindiff)
-            {  
+            { 
+                // very imp note-> you used clear function of vector for the first time 
                 ans.clear();
                 mindiff = arr[i+1] - arr[i];
                 ans.push_back({arr[i], arr[i+1]});
