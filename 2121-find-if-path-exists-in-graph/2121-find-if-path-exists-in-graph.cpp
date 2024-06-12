@@ -1,48 +1,40 @@
 class Solution {
 public:
-    int find(int a, vector<int>& parent)
-    {
-        if(parent[a] == a) return a;
-
-        return parent[a] = find(parent[a], parent);
-    }
-
-    void Union(int a, int b, vector<int>& parent, vector<int>& rank)
-    {
-        int par_a = find(a,parent);
-        int par_b = find(b, parent);
-
-        if(par_a == par_b) return;
-
-        if(rank[par_a] < rank[par_b])
-        {
-            parent[par_a] = par_b;
-        }
-        else if(rank[par_a] > par_b)
-        {
-            parent[par_b] = par_a;
-        }
-        else
-        {
-            parent[par_b] = par_a;
-            rank[par_a] += 1;
-        }
-    }
     bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
-        
+        if(n == 1) return true;
+        vector<vector<int>> adj(n);
 
-        vector<int> parent(n), rank(n, 0);
-
-        for(int i = 0; i < n ; i++)
+        for(int i = 0; i < edges.size(); i++)
         {
-            parent[i] = i;
+            int u = edges[i][0];
+            int v = edges[i][1];
+            adj[u].push_back(v);
+            adj[v].push_back(u);
         }
 
-        for(int i=0; i < edges.size(); i++)
+        vector<int> vis(n, 0);
+        queue<int> q;
+        q.push(source);
+        vis[source] = 1;
+
+        while(!q.empty())
         {
-            Union(edges[i][0], edges[i][1], parent, rank);
+            auto node = q.front();
+            q.pop();
+
+            for(auto &it : adj[node])
+            {
+                if(it == destination) return true;
+                else if(!vis[it])
+                {
+                    q.push(it);
+                    vis[it] = 1;
+                }
+                
+                
+            }
         }
 
-        return (find(source, parent) == find(destination, parent));
+        return false;        
     }
 };
