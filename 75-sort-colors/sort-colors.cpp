@@ -1,24 +1,15 @@
 class Solution {
 public:
     void sortColors(vector<int>& nums) {
-        vector<int> hash(3, 0);
-
-        for(int i=0; i<nums.size(); i++)
+        
+        for(int i=0; i < nums.size(); i++)
         {
-            hash[nums[i]]++;
-        }
-
-        int j = 0;
-        for(int i = 0; i < 3; i++)
-        {
-            int freq = hash[i];
-            while(freq)
+            int j = i;
+            while(j>0 && nums[j] < nums[j-1])
             {
-                nums[j] = i;
-                j++;
-                freq--;
+                swap(nums[j-1], nums[j]);
+                j--;
             }
         }
-        
     }
 };
