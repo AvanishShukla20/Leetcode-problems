@@ -4,6 +4,7 @@
 # Array
 |  |
 | ------- |
+| [0048-rotate-image](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0048-rotate-image) |
 | [0075-sort-colors](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0075-sort-colors) |
 | [1044-find-common-characters](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1044-find-common-characters) |
 | [1306-minimum-absolute-difference](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1306-minimum-absolute-difference) |
@@ -43,6 +44,7 @@
 # Matrix
 |  |
 | ------- |
+| [0048-rotate-image](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0048-rotate-image) |
 | [1753-path-with-minimum-effort](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1753-path-with-minimum-effort) |
 # Dynamic Programming
 |  |
@@ -82,3 +84,7 @@
 |  |
 | ------- |
 | [0075-sort-colors](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0075-sort-colors) |
+# Math
+|  |
+| ------- |
+| [0048-rotate-image](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0048-rotate-image) |
