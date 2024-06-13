@@ -6,6 +6,7 @@
 | ------- |
 | [0048-rotate-image](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0048-rotate-image) |
 | [0075-sort-colors](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0075-sort-colors) |
+| [1039-find-the-town-judge](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1039-find-the-town-judge) |
 | [1044-find-common-characters](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1044-find-common-characters) |
 | [1306-minimum-absolute-difference](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1306-minimum-absolute-difference) |
 | [1753-path-with-minimum-effort](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1753-path-with-minimum-effort) |
@@ -58,6 +59,7 @@
 |  |
 | ------- |
 | [0803-cheapest-flights-within-k-stops](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0803-cheapest-flights-within-k-stops) |
+| [1039-find-the-town-judge](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1039-find-the-town-judge) |
 | [1456-find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1456-find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance) |
 | [2121-find-if-path-exists-in-graph](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/2121-find-if-path-exists-in-graph) |
 # Shortest Path
@@ -69,6 +71,7 @@
 |  |
 | ------- |
 | [0409-longest-palindrome](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0409-longest-palindrome) |
+| [1039-find-the-town-judge](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1039-find-the-town-judge) |
 | [1044-find-common-characters](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1044-find-common-characters) |
 # String
 |  |
