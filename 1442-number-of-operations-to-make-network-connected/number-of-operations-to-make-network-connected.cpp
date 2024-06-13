@@ -1,41 +1,44 @@
 class Solution {
 public:
-    void dfs(int node, vector<int>& vis, vector<vector<int>>& adj)
+    void Union(int a, int b, vector<int>& parent, int& wires)
     {
-        vis[node] = 1;
+        int par_a = findParent(a, parent);
+        int par_b = findParent(b, parent);
 
-        for(auto &it : adj[node])
-        {
-            if(!vis[it])
-            {
-                dfs(it, vis, adj);
-            }
-        }
+        if(par_a == par_b) wires += 1;
+        else parent[par_a] = par_b;
+
+    }
+    int findParent(int node, vector<int>& parent)
+    {
+        if(parent[node] == node) return node;
+
+        return parent[node] = findParent(parent[node], parent);
     }
     int makeConnected(int n, vector<vector<int>>& connections) {
-        if(connections.size() < n-1) return -1;
+        //it is not needed that you follow Union by rank every time to apply DSU
+        vector<int> parent(n);
 
-        vector<int> vis(n,0);
-        vector<vector<int>> adj(n);
-
-        for(int i=0; i<connections.size(); i++)
+        for(int i=0; i<n;i++)
         {
-            adj[connections[i][0]].push_back(connections[i][1]);
-            adj[connections[i][1]].push_back(connections[i][0]);
+            parent[i] = i;
         }
 
-        int count = 0;
-        for(int i=0; i<n; i++)
+        int wires = 0;
+
+        for(int i=0; i < connections.size();i++)
         {
-            if(!vis[i])
-            {
-                count++;
-                dfs(i, vis,adj);
-            }
+            Union(connections[i][0], connections[i][1], parent, wires);
         }
 
-        
-        return count-1;
+        int prime_parents = 0;
+        for(int i = 0; i< parent.size(); i++)
+        {
+            if(parent[i] == i) prime_parents++; 
+        }
+
+        if(prime_parents-1 <= wires) return prime_parents-1 ;
+        return -1;
 
 
     }
