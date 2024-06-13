@@ -61,6 +61,7 @@
 | [0803-cheapest-flights-within-k-stops](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0803-cheapest-flights-within-k-stops) |
 | [1039-find-the-town-judge](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1039-find-the-town-judge) |
 | [1456-find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1456-find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance) |
+| [1661-minimum-number-of-vertices-to-reach-all-nodes](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1661-minimum-number-of-vertices-to-reach-all-nodes) |
 | [2121-find-if-path-exists-in-graph](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/2121-find-if-path-exists-in-graph) |
 # Shortest Path
 |  |
