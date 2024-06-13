@@ -27,17 +27,20 @@
 |  |
 | ------- |
 | [0803-cheapest-flights-within-k-stops](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0803-cheapest-flights-within-k-stops) |
+| [1442-number-of-operations-to-make-network-connected](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1442-number-of-operations-to-make-network-connected) |
 | [1753-path-with-minimum-effort](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1753-path-with-minimum-effort) |
 | [2121-find-if-path-exists-in-graph](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/2121-find-if-path-exists-in-graph) |
 # Breadth-First Search
 |  |
 | ------- |
 | [0803-cheapest-flights-within-k-stops](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0803-cheapest-flights-within-k-stops) |
+| [1442-number-of-operations-to-make-network-connected](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1442-number-of-operations-to-make-network-connected) |
 | [1753-path-with-minimum-effort](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1753-path-with-minimum-effort) |
 | [2121-find-if-path-exists-in-graph](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/2121-find-if-path-exists-in-graph) |
 # Union Find
 |  |
 | ------- |
+| [1442-number-of-operations-to-make-network-connected](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1442-number-of-operations-to-make-network-connected) |
 | [1753-path-with-minimum-effort](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1753-path-with-minimum-effort) |
 | [2121-find-if-path-exists-in-graph](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/2121-find-if-path-exists-in-graph) |
 # Heap (Priority Queue)
@@ -60,6 +63,7 @@
 | ------- |
 | [0803-cheapest-flights-within-k-stops](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0803-cheapest-flights-within-k-stops) |
 | [1039-find-the-town-judge](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1039-find-the-town-judge) |
+| [1442-number-of-operations-to-make-network-connected](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1442-number-of-operations-to-make-network-connected) |
 | [1456-find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1456-find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance) |
 | [1661-minimum-number-of-vertices-to-reach-all-nodes](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1661-minimum-number-of-vertices-to-reach-all-nodes) |
 | [2121-find-if-path-exists-in-graph](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/2121-find-if-path-exists-in-graph) |
