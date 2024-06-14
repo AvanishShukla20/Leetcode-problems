@@ -6,6 +6,7 @@
 | ------- |
 | [0048-rotate-image](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0048-rotate-image) |
 | [0075-sort-colors](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0075-sort-colors) |
+| [0721-accounts-merge](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0721-accounts-merge) |
 | [0982-minimum-increment-to-make-array-unique](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0982-minimum-increment-to-make-array-unique) |
 | [1039-find-the-town-judge](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1039-find-the-town-judge) |
 | [1044-find-common-characters](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1044-find-common-characters) |
@@ -27,6 +28,7 @@
 # Depth-First Search
 |  |
 | ------- |
+| [0721-accounts-merge](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0721-accounts-merge) |
 | [0803-cheapest-flights-within-k-stops](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0803-cheapest-flights-within-k-stops) |
 | [0813-all-paths-from-source-to-target](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0813-all-paths-from-source-to-target) |
 | [1442-number-of-operations-to-make-network-connected](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1442-number-of-operations-to-make-network-connected) |
@@ -35,6 +37,7 @@
 # Breadth-First Search
 |  |
 | ------- |
+| [0721-accounts-merge](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0721-accounts-merge) |
 | [0803-cheapest-flights-within-k-stops](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0803-cheapest-flights-within-k-stops) |
 | [0813-all-paths-from-source-to-target](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0813-all-paths-from-source-to-target) |
 | [1442-number-of-operations-to-make-network-connected](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1442-number-of-operations-to-make-network-connected) |
@@ -43,6 +46,7 @@
 # Union Find
 |  |
 | ------- |
+| [0721-accounts-merge](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0721-accounts-merge) |
 | [1442-number-of-operations-to-make-network-connected](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1442-number-of-operations-to-make-network-connected) |
 | [1753-path-with-minimum-effort](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1753-path-with-minimum-effort) |
 | [2121-find-if-path-exists-in-graph](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/2121-find-if-path-exists-in-graph) |
@@ -80,12 +84,14 @@
 |  |
 | ------- |
 | [0409-longest-palindrome](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0409-longest-palindrome) |
+| [0721-accounts-merge](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0721-accounts-merge) |
 | [1039-find-the-town-judge](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1039-find-the-town-judge) |
 | [1044-find-common-characters](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1044-find-common-characters) |
 # String
 |  |
 | ------- |
 | [0409-longest-palindrome](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0409-longest-palindrome) |
+| [0721-accounts-merge](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0721-accounts-merge) |
 | [1044-find-common-characters](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1044-find-common-characters) |
 # Greedy
 |  |
@@ -96,6 +102,7 @@
 |  |
 | ------- |
 | [0075-sort-colors](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0075-sort-colors) |
+| [0721-accounts-merge](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0721-accounts-merge) |
 | [0982-minimum-increment-to-make-array-unique](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0982-minimum-increment-to-make-array-unique) |
 | [1306-minimum-absolute-difference](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1306-minimum-absolute-difference) |
 # Two Pointers
