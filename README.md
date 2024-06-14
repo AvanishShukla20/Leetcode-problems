@@ -6,6 +6,7 @@
 | ------- |
 | [0048-rotate-image](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0048-rotate-image) |
 | [0075-sort-colors](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0075-sort-colors) |
+| [0982-minimum-increment-to-make-array-unique](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0982-minimum-increment-to-make-array-unique) |
 | [1039-find-the-town-judge](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1039-find-the-town-judge) |
 | [1044-find-common-characters](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1044-find-common-characters) |
 | [1306-minimum-absolute-difference](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1306-minimum-absolute-difference) |
@@ -90,10 +91,12 @@
 |  |
 | ------- |
 | [0409-longest-palindrome](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0409-longest-palindrome) |
+| [0982-minimum-increment-to-make-array-unique](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0982-minimum-increment-to-make-array-unique) |
 # Sorting
 |  |
 | ------- |
 | [0075-sort-colors](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0075-sort-colors) |
+| [0982-minimum-increment-to-make-array-unique](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0982-minimum-increment-to-make-array-unique) |
 | [1306-minimum-absolute-difference](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1306-minimum-absolute-difference) |
 # Two Pointers
 |  |
@@ -107,3 +110,7 @@
 |  |
 | ------- |
 | [0813-all-paths-from-source-to-target](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0813-all-paths-from-source-to-target) |
+# Counting
+|  |
+| ------- |
+| [0982-minimum-increment-to-make-array-unique](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0982-minimum-increment-to-make-array-unique) |
