@@ -6,6 +6,7 @@
 | ------- |
 | [0048-rotate-image](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0048-rotate-image) |
 | [0075-sort-colors](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0075-sort-colors) |
+| [0502-ipo](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0502-ipo) |
 | [0721-accounts-merge](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0721-accounts-merge) |
 | [0982-minimum-increment-to-make-array-unique](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0982-minimum-increment-to-make-array-unique) |
 | [1039-find-the-town-judge](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1039-find-the-town-judge) |
@@ -53,6 +54,7 @@
 # Heap (Priority Queue)
 |  |
 | ------- |
+| [0502-ipo](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0502-ipo) |
 | [0803-cheapest-flights-within-k-stops](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0803-cheapest-flights-within-k-stops) |
 | [1753-path-with-minimum-effort](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1753-path-with-minimum-effort) |
 # Matrix
@@ -97,11 +99,13 @@
 |  |
 | ------- |
 | [0409-longest-palindrome](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0409-longest-palindrome) |
+| [0502-ipo](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0502-ipo) |
 | [0982-minimum-increment-to-make-array-unique](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0982-minimum-increment-to-make-array-unique) |
 # Sorting
 |  |
 | ------- |
 | [0075-sort-colors](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0075-sort-colors) |
+| [0502-ipo](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0502-ipo) |
 | [0721-accounts-merge](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0721-accounts-merge) |
 | [0982-minimum-increment-to-make-array-unique](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0982-minimum-increment-to-make-array-unique) |
 | [1306-minimum-absolute-difference](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1306-minimum-absolute-difference) |
