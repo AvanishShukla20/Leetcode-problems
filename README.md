@@ -9,6 +9,7 @@
 | [0502-ipo](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0502-ipo) |
 | [0721-accounts-merge](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0721-accounts-merge) |
 | [0982-minimum-increment-to-make-array-unique](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0982-minimum-increment-to-make-array-unique) |
+| [1016-subarray-sums-divisible-by-k](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1016-subarray-sums-divisible-by-k) |
 | [1039-find-the-town-judge](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1039-find-the-town-judge) |
 | [1044-find-common-characters](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1044-find-common-characters) |
 | [1306-minimum-absolute-difference](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1306-minimum-absolute-difference) |
@@ -87,6 +88,7 @@
 | ------- |
 | [0409-longest-palindrome](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0409-longest-palindrome) |
 | [0721-accounts-merge](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0721-accounts-merge) |
+| [1016-subarray-sums-divisible-by-k](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1016-subarray-sums-divisible-by-k) |
 | [1039-find-the-town-judge](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1039-find-the-town-judge) |
 | [1044-find-common-characters](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1044-find-common-characters) |
 # String
@@ -125,3 +127,7 @@
 |  |
 | ------- |
 | [0982-minimum-increment-to-make-array-unique](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/0982-minimum-increment-to-make-array-unique) |
+# Prefix Sum
+|  |
+| ------- |
+| [1016-subarray-sums-divisible-by-k](https://github.com/AvanishShukla20/Leetcode-problems/tree/master/1016-subarray-sums-divisible-by-k) |
