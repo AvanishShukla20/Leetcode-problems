@@ -17,6 +17,6 @@ public:
                 patchCount++;    
             }
         }
-        return patchCount ;
+        return patchCount;
     }
 };
