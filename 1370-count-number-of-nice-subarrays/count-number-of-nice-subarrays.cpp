@@ -1,25 +1,30 @@
 class Solution {
 public:
     int numberOfSubarrays(vector<int>& nums, int k) {
-        unordered_map<int, int> oddCntfreq;
+       int i=0, j = 0, n = nums.size();
+       int prevFoundNoOfSubarrays = 0, oddcnt = 0, result = 0;
 
-        //We have Not used  j pointer here at any cost
-        oddCntfreq[0] = 1;
-        int oddcnt = 0, res = 0;
-        for(int i=0; i< nums.size(); i++)
+        // idea is -> when you get k  no of oddcnts .Then you add that cnt while shrinking the array. Meanwhile increasing the prevFoundNoOfSubarrays cnts
+       while(i < n)
+       {
+        if(nums[i]%2 != 0)
         {
-            if((nums[i]&1) == 1) oddcnt++;
-            oddCntfreq[oddcnt]++;
-            // main condition ->
-            
-            if(oddCntfreq.find( oddcnt - k ) != oddCntfreq.end())
-            {
-                res += oddCntfreq[oddcnt - k];
-            }
-
-            
+            oddcnt++;
+            // Since We start our counting from here. So,We initialise prevFoundNoOfSubarrays from here first
+            prevFoundNoOfSubarrays = 0;
         }
 
-        return res;
+        while(oddcnt == k)
+        {
+            prevFoundNoOfSubarrays++;
+
+            if(nums[j]%2 != 0) oddcnt--;
+            j++;
+        }
+
+        result += prevFoundNoOfSubarrays;
+        i++;
+       }
+       return result; 
     }
 };
