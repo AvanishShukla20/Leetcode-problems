@@ -18,26 +18,22 @@ public:
         // reversed the edges so that travesal to ancestor node is very quick and hastle free-> 
         for(int i = 0; i < edges.size();i++)
         {
-            adj[edges[i][1]].push_back(edges[i][0]);
+            adj[edges[i][0]].push_back(edges[i][1]);
         }
 
         vector<vector<int>> ans(n);
-        vector<int> arr;
         for(int i=0; i<n; i++)
         {
             vector<int> vis(n, 0);
-            arr.clear();
 
             dfs(i, adj, vis);
 
             // insert all visited nodes 
             for(int j = 0; j < n ; j++)
             {
-                if(vis[j] && i != j) arr.push_back(j);
+                if(vis[j] && i != j) ans[j].push_back(i);
             }
 
-            sort(arr.begin(), arr.end());
-            ans[i] = arr;
         }
         return ans;
 
