@@ -15,7 +15,7 @@ public:
         
         vector<vector<int>> adj(n);
 
-        // reversed the edges so that travesal to ancestor node is very quick and hastle free-> 
+        
         for(int i = 0; i < edges.size();i++)
         {
             adj[edges[i][0]].push_back(edges[i][1]);
