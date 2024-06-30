@@ -7,15 +7,15 @@ public:
         while(l <= h)
         {
             int mid = l + (h - l)/2;
-            if(nums[mid] == target)
+            if(nums[mid] >= target)
             {
-                return mid;
+                ans = mid;
+                h = mid - 1;
             }
-            else if(nums[mid] < target) l = mid + 1;
-            else h = mid - 1;
+            else l = mid + 1;
         }
 
-        return l;
+        return ans;
 
     }
 };
