@@ -1,41 +1,68 @@
 class Solution {
 public:
-    void dfs(int node, vector<vector<int>>& adj, vector<int>& vis)
-    {
-        vis[node] = 1;
-        for(auto &it : adj[node])
+    void topoSort(vector<vector<int>>& adj, vector<int>& indegree,vector<int>& topoOrder)
+    {   
+        queue<int> q;
+        for(int i = 0; i < indegree.size(); i++)
         {
-            if(!vis[it])
+            if(indegree[i] == 0) q.push(i);
+        }
+        
+        while(!q.empty())
+        {
+            auto node = q.front();
+            topoOrder.push_back(node);
+            q.pop();
+
+            for(auto &it: adj[node])
             {
-                dfs(it, adj, vis);
+                indegree[it]--;
+                if(indegree[it] == 0) q.push(it);
             }
         }
+
     }
     vector<vector<int>> getAncestors(int n, vector<vector<int>>& edges) {
         
+        vector<int> indegree(n,0);
         vector<vector<int>> adj(n);
 
-        
-        for(int i = 0; i < edges.size();i++)
+        for(int i=0; i<edges.size(); i++)
         {
             adj[edges[i][0]].push_back(edges[i][1]);
         }
 
-        vector<vector<int>> ans(n);
-        for(int i=0; i<n; i++)
+        for(int i =0; i<edges.size(); i++)
         {
-            vector<int> vis(n, 0);
-
-            dfs(i, adj, vis);
-
-            // insert all visited nodes 
-            for(int j = 0; j < n ; j++)
-            {
-                if(vis[j] && i != j) ans[j].push_back(i);
-            }
-
+            indegree[edges[i][1]]++;
         }
-        return ans;
+
+        vector<int> topoOrder;
+        topoSort(adj, indegree, topoOrder);
+
+        vector<set<int>> vec(n); // set is taken to store unique elements
+
+        for(int i=0; i<topoOrder.size(); i++)
+        {
+            int node = topoOrder[i];
+            cout<<topoOrder[i]<<" ";
+            for(auto &it : adj[node])
+            {
+                vec[it].insert(node);
+                // inserting the ancestors of node if they are present
+
+                vec[it].insert(vec[node].begin(), vec[node].end());
+            }
+        }
+
+        vector<vector<int>>  result(n);
+
+        for(int i =0; i < n; i++)
+        {
+            result[i] = vector<int> (vec[i].begin(), vec[i].end());
+        }
+
+        return result;
 
     }
 };
