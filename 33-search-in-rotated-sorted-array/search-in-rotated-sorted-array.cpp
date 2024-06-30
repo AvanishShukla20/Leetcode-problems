@@ -22,7 +22,7 @@ public:
                     low = mid + 1;
                 }
             }
-            else if(nums[mid] <= nums[high])
+            else if(nums[mid] <= nums[high]) //right portion is sorted
             {
                 if(nums[mid] <= target && target <= nums[high])
                 {
