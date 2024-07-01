@@ -25,7 +25,7 @@ public:
         if(left > right) return NULL;
         int mid = left + (right-left)/2;
 
-        TreeNode* nroot = new TreeNode(sortedList[mid]->val);
+        TreeNode* nroot = sortedList[mid];
         nroot->left = buildTree(sortedList, left, mid -1);
         nroot->right = buildTree(sortedList, mid+1, right);
         return nroot;
