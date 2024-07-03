@@ -11,22 +11,23 @@
  */
 class Solution {
 public:
-    //Best approach till seen 
-    int result = 0;
-    int helper(TreeNode* node)
+    int pathSeen(TreeNode* root, int& ans)
     {
-        if(node == NULL) return 0;
-       int leftPath = helper(node->left);
-       int rightPath = helper(node->right);
-        // root is included
-       result = max(result, leftPath + rightPath);
+        if(root == NULL) return 0;
 
-       return 1 + max(leftPath, rightPath);
+        int maxLeftPath  =  pathSeen(root->left, ans);
+        int maxRightPath = pathSeen(root->right, ans);
+
+        ans = max(ans, maxLeftPath + maxRightPath);
+
+        //Send the max path which came from any one of left or right side
+
+        return 1 + max(maxLeftPath, maxRightPath);
     }
-
     int diameterOfBinaryTree(TreeNode* root) {
-       if(root == NULL) return 0;
-        helper(root);
-       return result;
+        if(root == NULL) return 0;
+        int ans = 0;
+        int x = pathSeen(root, ans);
+        return ans;
     }
 };
