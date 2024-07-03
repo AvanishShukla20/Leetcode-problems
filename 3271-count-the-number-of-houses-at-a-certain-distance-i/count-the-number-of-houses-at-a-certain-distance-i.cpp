@@ -1,49 +1,62 @@
 class Solution {
 public:
     vector<int> countOfPairs(int n, int x, int y) {
-        vector<vector<int>> grid(n+1, vector<int>(n+1, 1e9));
+        vector<vector<int>> adj(n+1);
 
-        for(int i = 1; i < n; i++)
+        for(int  i = 1; i < n; i++)
         {
-            grid[i][i] = 0;
-            grid[i][i+1] = 1;
-            grid[i+1][i] = 1;
+            adj[i].push_back(i+1);
+            adj[i+1].push_back(i);
         }
-        grid[n][n] = 0;
+
         if(x != y)
         {
-            grid[x][y] = 1;
-            grid[y][x] = 1;
+            adj[x].push_back(y);
+            adj[y].push_back(x);
         }
-        
 
-
-        for(int midpath = 1; midpath <= n; midpath++)
+        vector<vector<int>> storeAns;   
+        for(int src = 1; src <= n; src++)
         {
-            for(int i =1; i <= n; i++)
+            vector<int> distance(n + 1, 1e9); 
+            distance[src] = 0;
+            priority_queue<pair<int, int>, vector<pair<int,int>>, greater<pair<int,int>> > pq;
+            pq.push({0, src});
+
+            while(!pq.empty())
             {
-                for(int j = 1; j<=n; j++)
+                auto top = pq.top();
+                pq.pop();
+
+                int dist = top.first;
+                int node = top.second;
+
+                for(auto &it : adj[node])
                 {
-                    if(i != j) grid[i][j] = min(grid[i][j], grid[i][midpath] + grid[midpath][j]);
+                    int newdst = dist + 1;
+                    if(newdst < distance[it])
+                    {
+                        distance[it] = newdst;
+                        pq.push({newdst, it});
+                    }
                 }
             }
+
+            storeAns.push_back(distance);
         }
 
 
         vector<int> ans(n);
-
-        for(int k = 1; k<= n; k++)
+        for(int k = 1; k<=n; k++)
         {
             int cnt = 0;
-
-            for(int i = 1; i<= n; i++)
+            for(auto &it : storeAns)
             {
-                for(int j = 1; j<= n; j++)
+                for(auto el : it)
                 {
-                    if(grid[i][j] == k) cnt++;
+                    if(el == k) cnt++;
                 }
             }
-
             ans[k-1] = cnt;
         }
         return ans;
