@@ -1,37 +1,22 @@
 class Solution {
 public:
     int numSubarrayBoundedMax(vector<int>& nums, int left, int right) {
-        /* three cases ->*/
-
-        int curridx = 0, endidx = 0, prevcnt = 0;
-        long ans = 0;
-
-        while(endidx < nums.size())
+        int i = 0, j = 0, prev = 0, ans = 0;
+        while(j < nums.size())
         {
-            // if curr idx is in our range ->
-            if(left <= nums[endidx] && nums[endidx] <= right)
+            if(left <= nums[j] && nums[j] <= right)
             {
-                // on very careful observation this will hit ->
-                prevcnt = endidx - curridx + 1;
-                ans = ans + prevcnt; 
+                prev = j - i + 1;
+                ans += prev;
             }
-            else if(nums[endidx] < left)
-            {
-                /* yhi tum fase the ->   */
-
-                //Do Dry run and find why to add previously calculated prevcnt value ONLY !!
-                ans += prevcnt;
-
-            }
+            else if(nums[j] < left) ans += prev;
             else
             {
-                // reset the window ->
-                curridx = endidx + 1;
-                prevcnt = 0;
+                i = j + 1;
+                prev = 0;
             }
-            endidx++;
+            j++;
         }
-
         return ans;
     }
 };
