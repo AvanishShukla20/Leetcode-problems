@@ -2,30 +2,27 @@ class Solution {
 public:
     string removeKdigits(string num, int k) {
         stack<char> st;
-        st.push(num[0]);
-        for(int i = 1; i < num.size(); i++)
+        int n = num.size(), cnt = 0; // this cnt plays major role 
+        
+        for(int i = 0; i < num.size(); i++)
         {
-            while(!st.empty() && st.top() - '0' > num[i] - '0' && k > 0)
+            while(!st.empty() && st.top() > num[i] && cnt < k)
             {
                 st.pop();
-                k--;
+                cnt++;
             }
 
-            //check and insert as leading zero should not be there
-            if(st.size() > 0 || num[i] - '0' != 0) st.push(num[i]);
-
+            if(!st.empty() || num[i] != '0') st.push(num[i]);
+            
         }
 
-        //note that we must have to make k as 0 . So , if it is not zero we will continue deleting numbers furthermore from stack
-
-        while(k > 0 && !st.empty())
+        while(!st.empty() && cnt < k)
         {
             st.pop();
-            k--;
+            cnt++;
         }
 
         if(st.empty()) return "0";
-
         string ans = "";
 
         while(!st.empty())
@@ -33,10 +30,10 @@ public:
             ans += st.top();
             st.pop();
         }
+        cout<<"ans : "<<ans<<endl;
         reverse(ans.begin(), ans.end());
 
-        
-
         return ans;
+
     }
 };
