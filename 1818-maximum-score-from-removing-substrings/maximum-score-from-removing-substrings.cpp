@@ -39,12 +39,14 @@ public:
 
             string temp = solve("ab",received, x, ans);
             //temp is of no use further
+            temp.clear();
         }
         else
         {
             string received = solve("ab",s, x, ans);
             string temp = solve("ba",received, y, ans);
             //temp is of no use further
+            temp.clear();
         }
         
         return ans;
