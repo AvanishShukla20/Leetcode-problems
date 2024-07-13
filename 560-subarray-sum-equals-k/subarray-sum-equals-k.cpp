@@ -1,23 +1,15 @@
 class Solution {
 public:
     int subarraySum(vector<int>& nums, int k) {
-        /* We need to have the prefix sum for every index */
-
-        int i=0, pfSum = 0, count = 0;
-        /*freq map of pfSum for every index Vs no of times that pfsum appeared before that index */
-        unordered_map<int, int> freq;
-        freq[0] = 1;
-        /* key of map is [pfSum - target] */
-        while(i < nums.size())
+        int n = nums.size(), sum = 0, ans = 0;
+        unordered_map<int, int> mpp;
+        mpp[0] = 1;
+        for(int i =0; i < n; i++)
         {
-            pfSum += nums[i];
-            if(freq.find(pfSum - k) != freq.end())
-            {
-                count += freq[pfSum-k];
-            }
-            freq[pfSum]++;
-            i++;
+            sum += nums[i];
+            if(mpp.find(sum - k) != mpp.end()) ans += mpp[sum - k];
+            mpp[sum]++;
         }
-        return count;
+        return ans;
     }
 };
