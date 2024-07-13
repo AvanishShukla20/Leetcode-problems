@@ -1,37 +1,28 @@
 class Solution {
 public:
     int totalFruit(vector<int>& fruits) {
-        
-        int n = fruits.size();
-
-        vector<int> vec(n + 1, -1);
-
-        int l = 0, r = 0, cnt = 0, ans = 0;
+        // using map can be a very much better way to implement this ques
+        unordered_map<int, int> mpp;
+        int l = 0, r = 0, ans = 0, n = fruits.size();
 
         while(r < n)
         {
-            if(vec[fruits[r]] == -1)
+            mpp[fruits[r]]++;
+
+            // shrink if size of map is greater than 2
+
+            while(mpp.size() > 2)
             {
-                if(cnt == 2)
-                {
-                    while(vec[fruits[l]] >= 0)
-                    {
-                        vec[fruits[l]] -= 1;
-                        if(vec[fruits[l]] == -1)
-                        {
-                            l++;
-                            break;
-                        }
-                        else l++;
-                    }
-                }
-                else cnt++;
+                if(mpp[fruits[l]] == 1) mpp.erase(fruits[l]);
+                else mpp[fruits[l]]--;
+                l++;
             }
-            
-            vec[fruits[r]] += 1;
+
             ans = max(ans, r - l + 1);
             r++;
+
         }
+
         return ans;
     }
 };
