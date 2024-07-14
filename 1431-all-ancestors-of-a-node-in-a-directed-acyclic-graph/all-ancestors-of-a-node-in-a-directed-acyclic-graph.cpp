@@ -1,68 +1,42 @@
 class Solution {
 public:
-    void topoSort(vector<vector<int>>& adj, vector<int>& indegree,vector<int>& topoOrder)
-    {   
-        queue<int> q;
-        for(int i = 0; i < indegree.size(); i++)
-        {
-            if(indegree[i] == 0) q.push(i);
-        }
-        
-        while(!q.empty())
-        {
-            auto node = q.front();
-            topoOrder.push_back(node);
-            q.pop();
+    void visitchilds(int node,vector<int>& visitedchilds,vector<vector<int>>& adj )
+    {
+        visitedchilds[node] = 1;
 
-            for(auto &it: adj[node])
+        for(auto &it : adj[node])
+        {
+            if(!visitedchilds[it])
             {
-                indegree[it]--;
-                if(indegree[it] == 0) q.push(it);
+                visitchilds(it, visitedchilds, adj);
             }
         }
 
     }
     vector<vector<int>> getAncestors(int n, vector<vector<int>>& edges) {
-        
-        vector<int> indegree(n,0);
         vector<vector<int>> adj(n);
-
-        for(int i=0; i<edges.size(); i++)
+        for(int i = 0; i < edges.size();i++)
         {
             adj[edges[i][0]].push_back(edges[i][1]);
         }
 
-        for(int i =0; i<edges.size(); i++)
+        vector<vector<int>> ans(n);
+
+        for(int par = 0; par < n; par++)
         {
-            indegree[edges[i][1]]++;
-        }
+            vector<int> visitedchilds(n, 0);
 
-        vector<int> topoOrder;
-        topoSort(adj, indegree, topoOrder);
+            visitchilds(par, visitedchilds, adj);
 
-        vector<set<int>> vec(n); // set is taken to store unique elements
-
-        for(int i=0; i<topoOrder.size(); i++)
-        {
-            int node = topoOrder[i];
-            cout<<topoOrder[i]<<" ";
-            for(auto &it : adj[node])
+            for(int j = 0; j < n; j++)
             {
-                vec[it].insert(node);
-                // inserting the ancestors of node if they are present
-
-                vec[it].insert(vec[node].begin(), vec[node].end());
+                if(visitedchilds[j] == 1 && j != par)
+                {
+                    ans[j].push_back(par);
+                }
             }
         }
 
-        vector<vector<int>>  result(n);
-
-        for(int i =0; i < n; i++)
-        {
-            result[i] = vector<int> (vec[i].begin(), vec[i].end());
-        }
-
-        return result;
-
+        return ans;
     }
 };
