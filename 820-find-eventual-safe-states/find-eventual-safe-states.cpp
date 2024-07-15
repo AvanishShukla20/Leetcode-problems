@@ -1,45 +1,44 @@
 class Solution {
 public:
-    vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
-        //reverse the connection to traverse through all the nodes using bfs
-        int n = graph.size();
-        vector<vector<int>> revgraph(n);
-        vector<int> indegree(n, 0);
-        queue<int> Q;
-        for(int u = 0; u<n; u++)
+    bool isCycle(int node, vector<int>& vis,vector<bool>& inRecursion, vector<vector<int>>& graph)
+    {
+        vis[node] = 1;
+        inRecursion[node] = true;
+        bool rec;
+        for(auto &it : graph[node])
         {
-            for(auto v : graph[u])
+            if(!vis[it])
+            {  
+                if(isCycle(it, vis,inRecursion, graph)) return true;
+            }
+            else if(inRecursion[it] == true)
             {
-                revgraph[v].push_back(u);
-                indegree[u]++;
+                return true;
             }
         }
 
-        for(int i=0; i<n; i++)
+        inRecursion[node] = false;
+        return false;
+    }
+    vector<int> eventualSafeNodes(vector<vector<int>>& graph){
+        int n = graph.size();
+        vector<int> vis(n, 0);
+        vector<bool> inRecursion(n);
+
+        for(int i = 0; i< n; i++)
         {
-            if(indegree[i] == 0) Q.push(i);
+            if(!vis[i])
+            {
+                isCycle(i, vis, inRecursion, graph);
+            }
         }
 
         vector<int> ans;
-        //bfs kahn's-traversal
-
-        while(!Q.empty())
+        for(int i = 0; i < inRecursion.size(); i++)
         {
-            int frontV = Q.front();
-            Q.pop();
-            ans.push_back(frontV);
-
-            for(auto it : revgraph[frontV])
-            {
-                indegree[it]--;
-                if(indegree[it] == 0) Q.push(it);
-            }
+            if(inRecursion[i] == false) ans.push_back(i);
         }
 
-        sort(ans.begin(), ans.end());
         return ans;
-
-
-
     }
 };
