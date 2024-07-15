@@ -26,14 +26,12 @@ public:
 
             if(mpp.find(par) == mpp.end())
             {
-                TreeNode* p = new TreeNode(par);
-                mpp[par] = p;
+                mpp[par] = new TreeNode(par);
             }
 
             if(mpp.find(child) == mpp.end())
             {
-                TreeNode* c = new TreeNode(child);
-                mpp[child] = c;
+                mpp[child] = new TreeNode(child);
             }
 
             if(side == 1)  mpp[par]->left = mpp[child];
