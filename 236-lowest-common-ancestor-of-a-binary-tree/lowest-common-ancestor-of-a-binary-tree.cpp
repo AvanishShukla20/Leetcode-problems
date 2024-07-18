@@ -8,23 +8,23 @@
  * };
  */
 class Solution {
-    //going dfs traversal
-    TreeNode* findLCA(TreeNode* curr, TreeNode* p, TreeNode* q)
-    {
-        if(curr == NULL || curr == p || curr == q) return curr;
-
-        TreeNode* l = findLCA(curr->left,p,q);
-        TreeNode* r = findLCA(curr->right,p,q);
-
-        if(r == NULL) return l; 
-        else if(l == NULL) return r;
-        // it means from both sides the nodes are returned in else case ->
-        else return curr;
-        
-    }
 public:
+
+    TreeNode* lca(TreeNode* root, TreeNode*& a, TreeNode*& b)
+    {
+        if(!root) return NULL;
+        else if(root == a || root == b) return root;
+
+        TreeNode* left = lca(root->left, a, b);
+        TreeNode* right = lca(root->right, a, b);
+
+        if(left && right) return root;
+        else if(left != NULL) return left;
+        else return right;
+    }
+
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        if(root == NULL) return NULL;
-        return findLCA(root, p, q);
+
+        return lca(root, p, q);
     }
 };
