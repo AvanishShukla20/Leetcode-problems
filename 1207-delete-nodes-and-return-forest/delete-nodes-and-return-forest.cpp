@@ -1,46 +1,50 @@
-
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
 public:
+    TreeNode* dfs(TreeNode* root,vector<TreeNode*>& store, unordered_set<int>& st)
+    {
+        // doing deletion task in bottom Up Approach i.e task performing while returning from call ....is mostly feasible in almost all tree problems
+        if(!root) return NULL;
+
+        root->left = dfs(root->left, store, st);
+        root->right = dfs(root->right, store, st);
+
+        // perform task
+
+        if(st.find(root->val) != st.end())
+        {
+            if(root->left) store.push_back(root->left);
+            if(root->right) store.push_back(root->right);
+            return  NULL;
+        }
+        else return root;
+
+
+    }
     vector<TreeNode*> delNodes(TreeNode* root, vector<int>& to_delete) {
-        unordered_map<int, TreeNode*> res;
-        unordered_set<int> to_delete_set(to_delete.begin(), to_delete.end());
-        res[root->val] = root;
-
-        function<void(TreeNode*, TreeNode*, bool)> recursion = [&](TreeNode* parent, TreeNode* cur_node, bool isleft) {
-            if (cur_node == nullptr) return;
-
-            recursion(cur_node, cur_node->left, true);
-            recursion(cur_node, cur_node->right, false);
-
-            if (to_delete_set.find(cur_node->val) != to_delete_set.end()) {
-                if (res.find(cur_node->val) != res.end()) {
-                    res.erase(cur_node->val);
-                }
-
-                if (parent) {
-                    if (isleft) {
-                        parent->left = nullptr;
-                    } else {
-                        parent->right = nullptr;
-                    }
-                }
-
-                if (cur_node->left) {
-                    res[cur_node->left->val] = cur_node->left;
-                }
-                if (cur_node->right) {
-                    res[cur_node->right->val] = cur_node->right;
-                }
-            }
-        };
-
-        recursion(nullptr, root, false);
         
-        vector<TreeNode*> result;
-        for (auto& pair : res) {
-            result.push_back(pair.second);
+        vector<TreeNode*> store;
+        unordered_set<int> st;
+
+        for(auto &it : to_delete) st.insert(it);
+
+        dfs(root, store, st);
+
+        if(st.find(root->val) == st.end())
+        {
+            store.push_back(root);
         }
         
-        return result;
+        return store;
     }
 };
