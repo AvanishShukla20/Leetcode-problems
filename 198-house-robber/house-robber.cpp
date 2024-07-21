@@ -1,35 +1,20 @@
 class Solution {
 public:
-
-    //Memo array as global variable 
-    int t[101]; // as 101 is max size of array given in constraints
-
-    int MaxMoney(int idx, vector<int>& nums)
+    int solve(int idx, vector<int>& nums, vector<int>& dp)
     {
-        if(idx >= nums.size())
-        {
-            return 0;
-        }
-        //check memo conditions before function calls
-         
-        if(t[idx] != -1) return t[idx];
-        
-        int choriKiya = nums[idx] + MaxMoney(idx+2,nums);
-        int choriNahiKiya = MaxMoney(idx+1,nums);
+        if(idx >= nums.size()) return 0;
 
-        int res = max(choriKiya, choriNahiKiya);
+        if(dp[idx] != -1) return dp[idx];
+        //include
+        int left = solve(idx + 2, nums, dp) + nums[idx];
+        //exclude
+        int right = solve(idx + 1, nums, dp);
 
-        t[idx] = res;
-        return res;
-
+        return dp[idx] = max(left, right);
     }
     int rob(vector<int>& nums) {
 
-        //initialise memo array with all values as -1
-        memset(t, -1, sizeof(t));
-        return MaxMoney(0,nums);
-        
-       
-
+        vector<int> dp(nums.size(), -1);
+        return solve(0, nums, dp);
     }
 };
