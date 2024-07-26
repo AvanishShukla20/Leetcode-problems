@@ -1,25 +1,6 @@
 class Solution {
 public:
-    bool solve(int idx, int target,vector<int>& nums, vector<vector<int>>&dp)
-    {
-        if(target == 0) return true;
-        if(idx == 0)
-        {
-            if(nums[idx] == target) return true;
-            return false;
-        }
-
-        if(dp[idx][target] != -1) return dp[idx][target];
-
-        //pick but with a check ->
-        bool pick = false;
-        if(target >= nums[idx]) pick = solve(idx-1, target-nums[idx], nums, dp);
-        //non-pick
-        bool non_pick = solve(idx-1, target, nums, dp);
-
-        return dp[idx][target] = pick || non_pick;
-
-    }
+    
     bool canPartition(vector<int>& nums) {
         int totalSum = 0;
         int n = nums.size();
@@ -32,8 +13,26 @@ public:
         cout<<totalSum<<endl;
         int target = totalSum/2;
 
-        vector<vector<int>> dp(n, vector<int> (target + 1, -1));
-        return solve(n - 1, target, nums, dp);
+        vector<vector<int>> dp(n, vector<int> (target + 1, 0));
+
+        for(int i = 0; i < n; i++) dp[i][0] = 1;
+        if(target >= nums[0]) dp[0][nums[0]] = 1;
+
+        for(int idx = 1 ; idx < n; idx++)
+        {
+            for(int goal = 1; goal <= target; goal++)
+            {
+                //pick but with a check ->
+                bool pick = false;
+                if(goal >= nums[idx]) pick = dp[idx-1][goal-nums[idx]];
+                //non-pick
+                bool non_pick = dp[idx-1][goal];
+
+                dp[idx][goal] = pick || non_pick;
+            }
+        }
+
+        return dp[n-1][target];
         
     }
 };
