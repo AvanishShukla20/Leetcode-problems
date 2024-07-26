@@ -1,68 +1,59 @@
 class Solution {
 public:
+    int findTheCity(int n, vector<vector<int>>& edges, int distanceThreshold) {
+        /* Here we have to find all the nodes with sum along the path under threshold for 
+           all  the nodes. So , we will need the minpathSum for each and every node to ther node. So, We use floyd algorithm*/
 
-    void dijkstra(int src,vector<vector<pair<int,int>>>& adj,vector<int>& dist)
-    {
-        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>>pq;
+           vector<vector<int>> costMatrix(n, vector<int> (n, 1e9));
 
-        pq.push({0,src});
-        dist[src] = 0;
+           for(int i=0; i<edges.size(); i++)
+           { 
+                int u = edges[i][0], v = edges[i][1], wt = edges[i][2];
+                //sice city connections are mostly undirected graphs. So, 
+                costMatrix[u][v] = wt;
+                costMatrix[v][u] = wt;  
+           }
 
-        while(!pq.empty())
-        {
-            auto temp = pq.top();
-            pq.pop();
+           for(int i=0; i<n; i++){
+                costMatrix[i][i] = 0;
+           }
 
-            int wgt = temp.first;
-            int node = temp.second;
 
-            for(auto it : adj[node])
+
+
+           //algorithm
+
+           for(int intermediate = 0; intermediate < n; intermediate++)
+           {
+            for(int i=0; i<n; i++)
             {
-                int d = it.second, neighbour = it.first;
-
-                if(wgt + d < dist[neighbour])
+                for(int j = 0; j < n ; j++)
                 {
-                    dist[neighbour] = wgt + d;
-                    pq.push({wgt+d, neighbour});
+                    //if city is unreachable ...then continue ->
+                    if(costMatrix[i][intermediate] == 1e9 || costMatrix[intermediate][j] == 1e9) continue;
+                    costMatrix[i][j] = min(costMatrix[i][j], costMatrix[i][intermediate] + costMatrix[intermediate][j]);
                 }
             }
-        }
+           }
 
-    }
-    int findTheCity(int n, vector<vector<int>>& edges, int distanceThreshold) {
-        //Why can't we do dikstra's algorithm here ->
-        vector<vector<pair<int,int>>> adj(n);
 
-        for(int i = 0; i < edges.size(); i++)
-        {
-            int u = edges[i][0];
-            int v = edges[i][1];
-            int wt = edges[i][2];
 
-            adj[u].push_back({v,wt});
-            adj[v].push_back({u, wt});
-        }
+           int minCount = 1e9, ans= -1;
 
-        int maxReach = INT_MAX;
-        int ans = INT_MIN;
-        for(int i=0; i < n; i++)
-        {
-            vector<int> dist(n,INT_MAX);
-            dijkstra(i,adj, dist);
-
+           for(int city = 0; city < n; city++)
+           {
             int count = 0;
-
-            for(int i=0; i < n; i++)
+            for(int neighbour = 0; neighbour < n; neighbour++)
             {
-                if(dist[i] <= distanceThreshold) count++;
+                if(costMatrix[city][neighbour] <= distanceThreshold) count++;
             }
 
-            if(count <= maxReach)
+            if(count <= minCount)
             {
-                maxReach = count;
-                ans = max(ans, i);
+                minCount = count;
+                ans = city;
             }
-        }
+           }
 
         return ans;
     }
