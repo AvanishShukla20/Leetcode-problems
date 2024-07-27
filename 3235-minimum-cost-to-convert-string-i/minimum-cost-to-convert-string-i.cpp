@@ -2,30 +2,18 @@ class Solution {
 public:
     long long minimumCost(string source, string target, vector<char>& original, vector<char>& changed, vector<int>& cost) {
         int n = original.size();
-        vector<vector<pair<int, int>>> adj(26);
-
-        for(int i = 0; i < n; i++)
-        {
-            int ds = changed[i] - 'a';
-            int cst  = cost[i];
-            adj[original[i]-'a'].push_back({cst, ds});
-        }
 
         //floyd warshall algorithm ->
 
         vector<vector<int>> grid(26, vector<int> (26, 1e9));
 
-        for(int i = 0; i<adj.size(); i++)
+        for(int i = 0; i<original.size(); i++)
         {
-            int s = i;
-            for(auto &it : adj[i])
-            {
-                int cs = it.first;
-                int ds = it.second;
+            int sr = original[i] - 'a';
+            int ds = changed[i] - 'a';
+            int cs = cost[i];
 
-                grid[s][ds] = min(grid[s][ds], cs);
-            }
-            
+            grid[sr][ds] = min(grid[sr][ds], cs);
         }
 
         for(int i =0; i<grid.size(); i++)
