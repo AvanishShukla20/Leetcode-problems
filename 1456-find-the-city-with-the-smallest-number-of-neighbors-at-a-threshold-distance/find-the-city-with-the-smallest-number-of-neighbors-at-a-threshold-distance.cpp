@@ -16,7 +16,7 @@ public:
             {
                 int neigh = it.first;
                 int ds = it.second;
-                if(dst + ds <= distance[neigh])
+                if(dst + ds < distance[neigh])
                 {
                     distance[neigh] = dst + ds;
                     pq.push({neigh, dst + ds});
