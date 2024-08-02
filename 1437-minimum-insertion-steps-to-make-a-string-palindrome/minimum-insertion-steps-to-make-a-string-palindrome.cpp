@@ -1,22 +1,25 @@
 class Solution {
 public:
-    int solve(int i, int j, string& s, vector<vector<int>>& dp)
+    int longestPalindromicSubseq(int i, int j, string& s1, string& s2, vector<vector<int>>& dp)
     {
-        if(i > j || i == j) return 0;
-
+        if(i < 0 || j < 0) return 0;
         if(dp[i][j] != -1) return dp[i][j];
 
-        if(s[i] == s[j]) return dp[i][j] = solve(i+1, j-1, s, dp);
+        if(s1[i] == s2[j]) return dp[i][j] = 1 + longestPalindromicSubseq(i-1, j-1, s1, s2, dp);
         else
         {
-            int pos1 = solve(i+1, j, s, dp) + 1;
-            int pos2 = solve(i, j-1, s, dp) + 1;
-            return dp[i][j] = min(pos1, pos2);
-        } 
+            return dp[i][j] = max(longestPalindromicSubseq(i-1, j, s1, s2, dp), longestPalindromicSubseq(i, j-1, s1, s2, dp));
+        }
     }
     int minInsertions(string s) {
         int n = s.size();
         vector<vector<int>> dp(n, vector<int> (n, -1));
-        return solve(0, n-1, s, dp);
+
+        string s1 = s;
+        reverse(s1.begin(), s1.end());
+
+        int lps = longestPalindromicSubseq(n-1, n-1, s,s1, dp);
+
+        return s.size() - lps;
     }
 };
