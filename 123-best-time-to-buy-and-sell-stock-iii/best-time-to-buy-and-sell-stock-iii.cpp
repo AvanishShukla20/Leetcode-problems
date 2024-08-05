@@ -2,25 +2,24 @@ class Solution {
 public:
     int maxProfit(vector<int>& prices) {
         int n = prices.size();
-        vector<vector<vector<int>>> dp(n+1, vector<vector<int>> (2, vector<int> (3, -1)));
+        vector<vector<int>> after(2, vector<int> (3, -1)), curr(2, vector<int> (3, -1));
 
-        for(int i = 0; i <= n; i++)
-        {
-            dp[i][0][2] = 0;
-            dp[i][1][2] = 0;
-        }
+        after[0][2] = 0;
+        after[1][2] = 0;
 
         for(int b = 0; b<=1; b++)
         {
             for(int c = 0; c <= 2; c++)
             {
-                dp[n][b][c] = 0;
+                after[b][c] = 0;
             }
         }
 
 
         for(int idx = n-1; idx >= 0; idx--)
         {
+            curr[0][2] = 0;
+            curr[1][2] = 0;
             for(int buy = 0; buy <= 1; buy++)
             {
                 for(int cap = 1; cap >= 0; cap--)
@@ -29,22 +28,24 @@ public:
 
         if(buy)
         {
-            int Buythis = -prices[idx] + dp[idx+1][0][cap]; 
-            int notBuythis = 0 + dp[idx+1][1][cap];
+            int Buythis = -prices[idx] + after[0][cap]; 
+            int notBuythis = 0 + after[1][cap];
             profit = max(Buythis, notBuythis);
         }
         else
         {
-            int sellthis = prices[idx] + dp[idx+1][1][cap+1];
-            int notsellthis = 0 + dp[idx+1][0][cap];
+            int sellthis = prices[idx] + after[1][cap+1];
+            int notsellthis = 0 + after[0][cap];
             profit = max(sellthis, notsellthis);
         }
 
-        dp[idx][buy][cap] = profit;
+        curr[buy][cap] = profit;
                 }
+
+                after = curr;
             }
         }
 
-        return dp[0][1][0];
+        return after[1][0];
     }
 };
