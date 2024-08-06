@@ -12,10 +12,7 @@ public:
         int ans = 0;
         for(int i = 0; i< 26; i++)
         {
-            if(i <= 7) ans += hash[i]*1;
-            else if(i >= 8 && i <= 15) ans += hash[i]*2;
-            else if(i > 15 && i <= 23) ans += hash[i]*3;
-            else ans += hash[i]*4;
+            ans += (i/8 + 1)* hash[i];
         }
 
 
