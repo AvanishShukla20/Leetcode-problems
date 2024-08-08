@@ -19,31 +19,30 @@ public:
     {
         return a.size() < b.size();
     }
-
-    int solve(int idx, int prev, vector<string>& words, vector<vector<int>>& dp)
-    {
-        int n = words.size();
-        if(idx == n) return 0;
-        if(dp[idx][prev+1] != -1) return dp[idx][prev+1];
-
-        int t1 = 0, t2 = 0, t3 = 0;
-        if( prev == -1 || ifPredecessor(words[prev], words[idx]))
-        {
-            //take 
-            t1 = solve(idx+1, idx, words, dp) + 1;
-            //not_take
-            t2 = solve(idx+1, prev, words, dp);
-        }
-
-        t3 = solve(idx+1, prev, words, dp);
-        return dp[idx][prev + 1] = max(t1, max(t2, t3));
-    }
     int longestStrChain(vector<string>& words) {
         
         int n = words.size();
-        vector<vector<int>> dp(n, vector<int> (n+1, -1));
+        vector<vector<int>> dp(n + 1, vector<int> (n+1, 0));
         sort(words.begin(), words.end(), comp);
 
-        return solve(0, -1, words, dp);
+        for(int idx = n-1; idx >= 0; idx--)
+        {
+            for(int prev = idx - 1; prev >= -1; prev--)
+            {
+                int t1 = 0, t2 = 0, t3 = 0;
+                if( prev == -1 || ifPredecessor(words[prev], words[idx]))
+                {
+                    //take 
+                    t1 = dp[idx+1][idx + 1] + 1;
+            //not_take
+                    t2 = dp[idx+1][prev + 1];
+                }
+                    t3 = dp[idx+1][prev + 1];
+                    dp[idx][prev+1] = max(t1, max(t2, t3));
+            }
+        }
+        
+
+        return dp[0][0];
     }
 };
