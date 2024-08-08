@@ -1,38 +1,26 @@
 class Solution {
 public:
-    int findInsertionPlace(vector<int>& nums, int target)
+    int solve(int idx, int prev, vector<int>& nums, vector<vector<int>>& dp)
     {
-        int low = 0, high = nums.size()-1;
-        int mid = low + (high - low)/2;
+        int n = nums.size();
+        if(idx == n) return 0;
+        if(dp[idx][prev+1] != -1) return dp[idx][prev+1];
 
-        while(low < high)
+        int t1 = 0, t2 = 0, t3 = 0;
+        if( prev == -1 || nums[idx] > nums[prev])
         {
-            mid = low + (high - low)/2;
-            if(nums[mid] == target) return mid;
-            else if(target < nums[mid]) high = mid;
-            else low = mid + 1;
+            //take 
+            t1 = solve(idx+1, idx, nums, dp) + 1;
+            //not_take
+            t2 = solve(idx+1, prev, nums, dp);
         }
-        return low;
+
+        t3 = solve(idx+1, prev, nums, dp);
+        return dp[idx][prev + 1] = max(t1, max(t2, t3));
     }
     int lengthOfLIS(vector<int>& nums) {
         int n = nums.size();
-        vector<int> temp;
-        temp.push_back(nums[0]);
-        int len = 1;
-        for(int i =0; i<n; i++)
-        {
-            if(nums[i] > temp.back())
-            {
-                temp.push_back(nums[i]);
-                len++;
-            }
-            else 
-            {
-                int idx = findInsertionPlace(temp, nums[i]);
-                temp[idx] = nums[i];
-            }
-        }
-
-        return len;
+        vector<vector<int>> dp(n, vector<int> (n+1, -1));
+        return solve(0, -1, nums, dp);
     }
 };
