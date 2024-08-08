@@ -22,7 +22,7 @@ public:
     int longestStrChain(vector<string>& words) {
         
         int n = words.size();
-        vector<vector<int>> dp(n + 1, vector<int> (n+1, 0));
+        vector<int> ahead(n+1, 0),curr(n+1, 0);
         sort(words.begin(), words.end(), comp);
 
         for(int idx = n-1; idx >= 0; idx--)
@@ -33,16 +33,17 @@ public:
                 if( prev == -1 || ifPredecessor(words[prev], words[idx]))
                 {
                     //take 
-                    t1 = dp[idx+1][idx + 1] + 1;
+                    t1 = ahead[idx + 1] + 1;
             //not_take
-                    t2 = dp[idx+1][prev + 1];
+                    t2 = ahead[prev + 1];
                 }
-                    t3 = dp[idx+1][prev + 1];
-                    dp[idx][prev+1] = max(t1, max(t2, t3));
+                    t3 = ahead[prev + 1];
+                    curr[prev+1] = max(t1, max(t2, t3));
             }
+            ahead = curr;
         }
         
 
-        return dp[0][0];
+        return curr[0];
     }
 };
