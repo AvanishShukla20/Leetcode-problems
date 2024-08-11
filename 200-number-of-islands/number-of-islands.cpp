@@ -1,57 +1,92 @@
+class DisjointSet
+{
+    public:
+    vector<int> parent, size;
+    DisjointSet(int n)
+    {
+        parent.resize(n+1);
+        size.resize(n+1, 1);
+        for(int i = 0; i<= n; i++) parent[i] = i;
+    }
+
+    int find(int a)
+    {
+        if(parent[a] == a) return a;
+
+        return parent[a] = find(parent[a]);
+    }
+
+    void Union(int a, int b)
+    {
+        int ulpa = find(a);
+        int ulpb = find(b);
+
+        if(ulpa == ulpb) return;
+
+        if(size[ulpa] < size[ulpb])
+        {
+            parent[ulpb] = ulpa;
+            size[ulpb] += size[ulpa];
+        }
+        else
+        {
+            parent[ulpa] = ulpb;
+            size[ulpa] += size[ulpb];
+        }
+    }
+};
+
+ 
 class Solution {
 public:
-    void bfs(int row, int col, vector<vector<int>>& isVisited, vector<vector<char>>& grid)
+    void bfs(int& ir, int& ic, vector<vector<char>>& grid, vector<vector<int>>& vis)
     {
-        isVisited[row][col] = 1;
-        queue<pair<int, int>> Q;
-        Q.push({row, col});
+        vis[ir][ic] = 1;
+        int m = grid.size(),n = grid[0].size();
 
-        vector<pair<int,int>> directions{{0,1},{0,-1},{1,0},{-1,0}};
+        vector<int> dr = {-1, 0, 1, 0};
+        vector<int> dc = {0, -1, 0, 1};
 
-        int n = grid.size();
-        int m = grid[0].size();
-        while(!Q.empty())
+        queue<pair<int, int>> q;
+        q.push({ir, ic});
+
+        while(!q.empty())
         {
-            auto x = Q.front();
-            int r = x.first;
-            int c = x.second;
-            Q.pop();
+            auto tuple = q.front();
+            q.pop();
+            int i = tuple.first;
+            int j = tuple.second;
 
-            for(int del= 0; del < directions.size(); del++)
+            for(int c = 0; c < 4; c++)
             {
-                    int newRow = r + directions[del].first;
-                    int newCol = c + directions[del].second;
+                int drow = i + dr[c];
+                int dcol = j + dc[c];
 
-                    if(newRow >= 0 && newRow < n && newCol >= 0 && newCol < m && grid[newRow][newCol] == '1' && isVisited[newRow][newCol] == 0 )
-                    {
-                        isVisited[newRow][newCol] = 1;
-                        Q.push({newRow, newCol});
-                    }
-                
-            }
-        }
-
-    }
-    int numIslands(vector<vector<char>>& grid) {
-        int n = grid.size();
-        int m = grid[0].size();
-
-        //new syntax learnt to declare a vector of vectors all initialised as 0
-        vector<vector<int>> isVisited(n, vector<int>(m , 0));
-        int count = 0;
-
-        for(int i = 0; i<n; i++)
-        {
-            for(int j = 0; j<m;j++)
-            {
-                if(grid[i][j] == '1' && isVisited[i][j] == 0)
+                if(drow >= 0 && drow < m && dcol >= 0 && dcol < n && grid[drow][dcol] == '1' && !vis[drow][dcol])
                 {
-                    count++;
-                    bfs(i, j, isVisited, grid);
+                    vis[drow][dcol] = 1;
+                    q.push({drow, dcol});
                 }
             }
         }
-        return count;
+    }
+    int numIslands(vector<vector<char>>& grid) {
+        int m = grid.size(),n = grid[0].size();
+        vector<vector<int>> vis(m, vector<int>(n, 0));
+        int cnt = 0;
+        for(int i = 0; i<m; i++)
+        {
+            for(int j = 0; j < n; j++)
+            {
+                if(!vis[i][j] && grid[i][j] == '1')
+                {
+                    bfs(i,j, grid, vis);
+                    cnt += 1;
+                }
+            }
+            
+        }
 
+        return cnt;
     }
 };
