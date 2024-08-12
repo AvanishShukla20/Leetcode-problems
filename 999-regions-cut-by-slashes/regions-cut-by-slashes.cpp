@@ -1,71 +1,64 @@
 class Solution {
-    vector<int> parent;
-    vector<int> rank;
-    int count;
-    
 public:
+    void dfs(int i, int j, vector<vector<int>>& mat, vector<vector<int>>& vis)
+    {
+        int m = mat.size(), n = mat[0].size();
+        vector<int> drow = {-1, 0, 1, 0};
+        vector<int> dcol = {0, -1, 0, 1};
+
+        vis[i][j] = 1;
+
+        for(int d = 0; d<4; d++)
+        {
+            int nr = i + drow[d];
+            int nc = j + dcol[d];
+
+            if(nr >= 0 && nr < m && nc >= 0 && nc < n && mat[nr][nc] == 0 && !vis[nr][nc]) dfs(nr, nc, mat, vis);
+        }
+    }
     int regionsBySlashes(vector<string>& grid) {
-        int n = grid.size();
-        int dots = n + 1;
-        parent.resize(dots * dots);
-        rank.resize(dots * dots, 1);
-        count = 0;
+        // make a new matrix to represent the characters individually as a matrix
 
-        // Initialize Union-Find structure
-        for (int i = 0; i < parent.size(); ++i) {
-            parent[i] = i;
-        }
+        int m = grid.size(), n = grid[0].size();
+        vector<vector<int>> mat( m*3, vector<int> ( n*3, 0));
 
-        // Connect boundaries to the top-left corner (0,0)
-        for (int i = 0; i < dots; ++i) {
-            for (int j = 0; j < dots; ++j) {
-                if (i == 0 || j == 0 || i == n || j == n) {
-                    int cell = i * dots + j;
-                    unionSets(0, cell);
+        for(int i = 0; i<m; i++)
+        {
+            for(int j = 0; j<n; j++)
+            {
+                char ch = grid[i][j];
+
+                if(ch == '\\')
+                {
+                    mat[i*3][j*3] = 1;
+                    mat[i*3 + 1][j*3 + 1] = 1;
+                    mat[i*3 + 2][j*3 + 2] = 1;
+                }
+                else if(ch == '/')
+                {
+                    mat[i*3][j*3 + 2] = 1;
+                    mat[i*3 + 1][j*3 + 1] = 1;
+                    mat[i*3 + 2][j*3] = 1;
                 }
             }
         }
 
-        // Process each cell and connect regions based on slashes
-        for (int i = 0; i < n; ++i) {
-            for (int j = 0; j < n; ++j) {
-                if (grid[i][j] == '\\') {
-                    int cell1 = i * dots + j;
-                    int cell2 = (i + 1) * dots + (j + 1);
-                    unionSets(cell1, cell2);
-                } else if (grid[i][j] == '/') {
-                    int cell1 = (i + 1) * dots + j;
-                    int cell2 = i * dots + (j + 1);
-                    unionSets(cell1, cell2);
+        //now just find the no of islands in this new matrix considering 0's as land and 1's as water ->
+
+        vector<vector<int>> vis(m*3, vector<int> (n*3, 0));
+        int cnt = 0;
+        for(int i = 0; i<m*3; i++)
+        {
+            for(int j = 0; j < n*3; j++)
+            {
+                if(mat[i][j] == 0 && !vis[i][j])
+                {
+                    cnt++;
+                    dfs(i, j, mat, vis);
                 }
             }
         }
 
-        return count;
-    }
-    
-private:
-    void unionSets(int a, int b) {
-        int parentA = find(a);
-        int parentB = find(b);
-        if (parentA == parentB) {
-            count++;
-        } else {
-            if (rank[parentA] > rank[parentB]) {
-                parent[parentB] = parentA;
-            } else if (rank[parentA] < rank[parentB]) {
-                parent[parentA] = parentB;
-            } else {
-                parent[parentB] = parentA;
-                rank[parentA]++;
-            }
-        }
-    }
-    
-    int find(int a) {
-        if (parent[a] == a) {
-            return a;
-        }
-        return parent[a] = find(parent[a]);
+        return cnt;
     }
 };
