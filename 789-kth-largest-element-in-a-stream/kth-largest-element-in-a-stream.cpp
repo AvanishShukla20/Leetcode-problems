@@ -2,33 +2,25 @@ class KthLargest {
 public:
     int p;
     vector<int> stream;
-
-    int findpos(int num, vector<int>& stream)
-    {
-        int n = stream.size();
-        int low = 0, high = n - 1, mid;
-
-        while(low <= high)
-        {
-            mid = low + (high - low)/2;
-            if(stream[mid] == num) return mid;
-            else if(stream[mid] < num) low = mid + 1;
-            else high = mid - 1;
-        }
-        return low;
-    }
+    //min-heap taken because it is asked about largest... :)
+    priority_queue<int, vector<int>, greater<int>> pq;
 
     KthLargest(int k, vector<int>& nums) {
         p = k;
-        for(auto &it : nums) stream.push_back(it);
-        sort(stream.begin(), stream.end());
+        for(auto &it : nums)
+        {
+            pq.push(it);
+            stream.push_back(it);
+        }
     }
     
     int add(int val) {
-        int idx = findpos(val, stream);
-        stream.insert(stream.begin() + idx , val);
-
-        return stream[stream.size() - p];
+        pq.push(val);
+        while(pq.size() > p)
+        {
+            pq.pop();
+        }
+        return pq.top();
     }
 };
 
