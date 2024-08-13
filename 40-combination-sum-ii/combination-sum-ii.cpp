@@ -1,32 +1,30 @@
 class Solution {
 public:
-    void getValidSubsets(int idx, int target, vector<int>& candidates, vector<int>& ds, vector<vector<int>>& ans)
+    void validCandidates(int i, vector<int>& candidates, int target, vector<int>& temp, vector<vector<int>>& ans)
     {
         if(target == 0)
         {
-            ans.push_back(ds);
+            ans.push_back(temp);
             return;
         }
-        for(int i=idx; i<candidates.size(); i++)
-        {
-            if(i > idx && candidates[i] == candidates[i-1])
-            {
-                continue;
-            }
-            if(target < candidates[i] ) break;
-
-            ds.push_back(candidates[i]);
-            getValidSubsets(i+1, target - candidates[i], candidates, ds, ans);
-            ds.pop_back();
-        }
+        if(i == candidates.size()) return;  
+        //pick
         
+        if(target >= candidates[i])
+        {
+            temp.push_back(candidates[i]);
+            validCandidates(i+1, candidates, target - candidates[i], temp, ans);
+            temp.pop_back();
+        }
+        while(i+1 < candidates.size() && candidates[i] == candidates[i+1]) i++;
+        //non pick
+        validCandidates(i+1, candidates, target, temp, ans);
     }
     vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-
+        vector<int> ds;
         sort(candidates.begin(), candidates.end());
         vector<vector<int>> ans;
-        vector<int> ds;
-        getValidSubsets(0, target, candidates, ds, ans);
+        validCandidates(0,candidates,target,ds, ans);
         return ans;
     }
 };
