@@ -1,36 +1,30 @@
 class Solution {
 public:
-    void findPermutations(vector<int>& arr, vector<int>& ds, vector<vector<int>>& ans, unordered_map<int,int> visitedValue)
+    void solve(int idx,vector<int>& nums, vector<int>& temp, vector<vector<int>>& ans, unordered_set<int>& st)
     {
-        //ds -> data structure
-        if(ds.size() == arr.size())
-        {
-            ans.push_back(ds);
+       if(idx == nums.size())
+       {
+            ans.push_back(temp);
             return;
-        }
+       }
 
-        for(int i = 0 ; i < arr.size(); i++)
+       for(int i = 0; i< nums.size(); i++)
+       {
+        if(st.find(nums[i]) == st.end())
         {
-            //we check if the element is already added in our ds . If yes then we skip it
-            if(visitedValue[arr[i]] != 0)
-            {
-                continue;
-            }
-
-
-            ds.push_back(arr[i]);
-            visitedValue[arr[i]] = 1;
-            findPermutations(arr,ds,ans,visitedValue);
-            visitedValue[arr[i]] = 0;
-            ds.pop_back();
+            temp.push_back(nums[i]);
+            st.insert(nums[i]);
+            solve(idx + 1, nums, temp, ans, st);
+            temp.pop_back();
+            st.erase(nums[i]);
         }
-
+       }
     }
     vector<vector<int>> permute(vector<int>& nums) {
         vector<vector<int>> ans;
-        vector<int> ds;
-        unordered_map<int,int> mpp;
-        findPermutations(nums,ds,ans,mpp);
+        vector<int> temp;
+        unordered_set<int> st;
+        solve(0, nums, temp, ans, st);
         return ans;
     }
 };
