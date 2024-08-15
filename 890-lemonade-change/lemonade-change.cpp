@@ -1,29 +1,35 @@
 class Solution {
 public:
     bool lemonadeChange(vector<int>& bills) {
-        int fiveCount=0, tenCount=0, twentyCount=0, i=0;
-        while(i<bills.size())
+        int fivecoins =0, tencoins = 0, twentycoins = 0;
+        for(int i = 0; i<bills.size(); i++)
         {
-            if(bills[i]==5) fiveCount++;
-            else if(bills[i]==10)
+            if(bills[i] == 5) fivecoins++;
+            else if(bills[i] == 10 && fivecoins > 0)
             {
-                if(fiveCount==0) return false;
-                fiveCount--;
-                tenCount++;
+                tencoins++;
+                fivecoins--;
             }
-            else
+            else if(bills[i] == 20)
             {
-                if(fiveCount > 0 and tenCount > 0 )
+                if(tencoins == 0)
                 {
-                    fiveCount--;
-                    tenCount--;
+                    if(fivecoins >= 3)
+                    {
+                        fivecoins -= 3;
+                        twentycoins++;
+                    }
+                    else return false;
                 }
-                //case when 10 ka count==0 but count of 5 is >=3
-                else if(fiveCount >= 3) fiveCount-=3;
+                else if(fivecoins > 0)
+                {
+                    fivecoins--;
+                    tencoins--;
+                    twentycoins++;
+                }
                 else return false;
-                twentyCount++;
             }
-            i++;
+            else return false;
         }
         return true;
     }
