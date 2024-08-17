@@ -1,25 +1,23 @@
 class Solution {
 public:
     int maxDistance(vector<vector<int>>& arrays) {
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> minpq;
-        priority_queue<pair<int, int>> maxpq;
-
-        int n = arrays.size();
-
-        for(int i =0; i<n; i++)
+        int globalmin = arrays[0].front();
+        int globalmax = arrays[0].back();
+        int ans = 0;
+        for(int i = 1; i<arrays.size(); i++)
         {
-            minpq.push({arrays[i][0], i});
-            maxpq.push({arrays[i][arrays[i].size() - 1], i});
+            int currmin = arrays[i].front();
+            int currmax = arrays[i].back();
+
+            // since hme different arrays se elements uthane the isliye pehle current ka difference wale operation swith iske pahle wale... kaam ko  pehle karenge then update krenge
+
+            ans = max(ans, max(abs(globalmax - currmin), abs(globalmin - currmax)));
+
+            globalmin = min(globalmin, currmin);
+            globalmax = max(globalmax, currmax);
         }
 
-        if(minpq.top().second != maxpq.top().second) return maxpq.top().first - minpq.top().first;
-        else
-        {
-            int temp1 = minpq.top().first, temp2 = maxpq.top().first; 
-            minpq.pop();
-            maxpq.pop();
-            int ans = max(temp2 - minpq.top().first, maxpq.top().first - temp1);
-            return ans;
-        }
+        return ans;
+
     }
 };
