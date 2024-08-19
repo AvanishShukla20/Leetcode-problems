@@ -7,17 +7,16 @@ public:
             ans.push_back(temp);
             return;
         }
-        if(idx == n + 1) return;
-        //take and explore
-        temp.push_back(idx);
-        solve(idx+1,temp, ans, k-1, n);
-        temp.pop_back();
 
-        solve(idx+1,temp, ans, k, n);
+        for(int i = idx; i <= n; i++)
+        {
+            temp.push_back(i);
+            solve(i+1,temp, ans, k-1, n);
+            temp.pop_back();
+        }
     }
     vector<vector<int>> combine(int n, int k) {
         vector<vector<int>> ans;
-        unordered_set<int> st;
         vector<int> temp;
 
         solve(1,temp, ans, k, n);
