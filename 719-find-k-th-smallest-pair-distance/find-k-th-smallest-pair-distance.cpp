@@ -1,80 +1,43 @@
 class Solution {
 public:
-    int smallestDistancePair(vector<int>& nums, int k) {
-        sort(nums.begin(), nums.end());
-        int arraySize = nums.size();
+    int calculateValidPairs(int Diff, vector<int>& nums)
+    {
+        int i = 0, j = 1, n = nums.size(), cnt = 0;
 
-        // Largest element in the sorted array
-        int maxElement = nums[arraySize - 1];
+        while(j < n)
+        {
+            while(i < j && abs(nums[j] - nums[i]) > Diff) i++;
+            if(i == j) j++;
 
-        // Maximum possible distance
-        int maxPossibleDistance = maxElement * 2;
-
-        // Initialize arrays for prefix counts and value counts
-        vector<int> prefixCount(maxPossibleDistance, 0);
-        unordered_map<int, int> valueCount;
-
-        // Populate the prefixCount array
-        int index = 0;
-        for (int value = 0; value < maxPossibleDistance; ++value) {
-            while (index < arraySize && nums[index] <= value) {
-                ++index;
+            int windowlen = j - i;
+            if(abs(nums[j] - nums[i]) <= Diff)
+            {
+                cnt += windowlen;
             }
-            prefixCount[value] = index;
+            j++;
         }
-
-        // Populate the valueCount map
-        for (int i = 0; i < arraySize; ++i) {
-            ++valueCount[nums[i]];
-        }
-
-        // Binary search for the k-th smallest distance
-        int low = 0, high = maxElement;
-        while (low < high) {
-            int mid = (low + high) / 2;
-
-            // Count pairs with distance <= mid
-            int count = countPairs(nums, prefixCount, valueCount, mid);
-
-            // Adjust binary search bounds based on count
-            if (count < k) {
-                low = mid + 1;
-            } else {
-                high = mid;
-            }
-        }
-        return low;
+        return cnt;
     }
+    int smallestDistancePair(vector<int>& nums, int k) {
+        int n = nums.size();
+        sort(nums.begin(), nums.end());
 
-private:
-    // Count number of pairs with distance <= m
-    int countPairs(vector<int>& nums, vector<int>& prefixCount,
-                   unordered_map<int, int>& valueCount, int maxDistance) {
-        int count = 0;
-        int arraySize = nums.size();
-        int index = 0;
+        int ldiff = 0, hdiff = nums[n-1], mid = 0, ans;
 
-        while (index < arraySize) {
-            int currentValue = nums[index];
-            int valueCountForCurrent = valueCount.at(currentValue);
-
-            // Calculate pairs involving current value with distance <=
-            // maxDistance
-            int pairsWithLargerValues =
-                prefixCount[currentValue + maxDistance] -
-                prefixCount[currentValue];
-            int pairsWithSameValues =
-                valueCountForCurrent * (valueCountForCurrent - 1) / 2;
-
-            count += pairsWithLargerValues * valueCountForCurrent +
-                     pairsWithSameValues;
-
-            // Skip duplicate values
-            while (index + 1 < arraySize && nums[index] == nums[index + 1]) {
-                ++index;
+        while(ldiff < hdiff)
+        {
+            mid = ldiff + (hdiff - ldiff)/2;
+            int validPairs = calculateValidPairs(mid, nums);
+            cout<<"diff -> "<<mid<<" -> "<<validPairs<<endl;
+            if(validPairs >= k)
+            {
+                //the greater diff must be containg the count of lower differences also .Hence,
+                ans = mid;
+                hdiff = mid;
             }
-            ++index;
+            else ldiff = mid + 1;
         }
-        return count;
+
+        return ans;
     }
 };
