@@ -7,13 +7,8 @@ public:
         while(j < n)
         {
             while(i < j && abs(nums[j] - nums[i]) > Diff) i++;
-            if(i == j) j++;
-
             int windowlen = j - i;
-            if(abs(nums[j] - nums[i]) <= Diff)
-            {
-                cnt += windowlen;
-            }
+            cnt += windowlen;
             j++;
         }
         return cnt;
