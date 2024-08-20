@@ -1,25 +1,31 @@
 class Solution {
 public:
     int nthUglyNumber(int n) {
-        vector<int> primes = {2, 3, 5};
-        priority_queue<long, vector<long>, greater<long>> uglyHeap;
-        unordered_set<long> visited;
-        
-        uglyHeap.push(1);
-        visited.insert(1);
-        
-        long curr;
-        for (int i = 0; i < n; ++i) {
-            curr = uglyHeap.top();
-            uglyHeap.pop();
-            for (int prime : primes) {
-                long new_ugly = curr * prime;
-                if (visited.find(new_ugly) == visited.end()) {
-                    uglyHeap.push(new_ugly);
-                    visited.insert(new_ugly);
-                }
+        vector<int> ans(n+1); // ans[i] will store my ith ugly no
+        ans[1] = 1;
+
+        int i2 = 1, i3 = 1, i5 = 1;
+
+        for(int i = 2; i<= n; i++)
+        {
+            int temp2 = 2*ans[i2];
+            int temp3 = 3*ans[i3];
+            int temp5 = 5*ans[i5];
+
+            int ithUgly = min(temp2, min(temp3, temp5));
+            ans[i] = ithUgly;
+
+            if(ithUgly == temp2)
+            {
+                // i2 ko badhayenge kyonki ye iteration me uske index ka element to use hogya . So, next iteration ke liye use doore idx ko pint krna hoga jo valid ans de ske
+                i2++;
             }
+            if(ithUgly == temp3) i3++;
+            if(ithUgly == temp5) i5++ ;
+
         }
-        return (int)curr;
+
+        return ans[n];
+
     }
 };
