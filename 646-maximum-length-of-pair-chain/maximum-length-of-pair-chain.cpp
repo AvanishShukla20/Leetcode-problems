@@ -18,7 +18,7 @@ public:
     }
     int findLongestChain(vector<vector<int>>& pairs) {
         sort(pairs.begin(), pairs.end());
-        vector<vector<int>> dp(3000, vector<int>(3000, -1));
+        vector<vector<int>> dp(1002, vector<int>(1002, -1));
         return solve(0, -1, pairs, dp);
     }
 };
