@@ -10,13 +10,13 @@ public:
         if(prev == -1 || grt == 1)
         {
             if(prev == -1 || nums[idx] > nums[prev]) ans = max(ans, 1 + solve(idx+1,idx, 0, nums));
-            ans = max(ans, solve(idx+1,prev, 1, nums));
         }
         if(prev == -1 || grt == 0)
         {
             if(prev == -1 || nums[idx] < nums[prev]) ans = max(ans, 1 + solve(idx+1,idx, 1, nums));
-            ans = max(ans, solve(idx+1,prev, 0, nums));
         }
+
+        ans = max(ans, solve(idx+1,prev, grt, nums));
 
         return dp[idx][prev+1][grt] = ans;
     }
