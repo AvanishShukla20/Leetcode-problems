@@ -1,27 +1,24 @@
 class Solution {
 public:
-    int dp[1002][1002][2];
-    int solve(int idx,int prev, int grt, vector<int>& nums) // grt = 1 means greater required
-    {
-        if(idx == nums.size()) return 0;
-        if(dp[idx][prev+1][grt] != -1) return dp[idx][prev+1][grt];
-        int ans = 0;
-
-        if(prev == -1 || grt == 1)
-        {
-            if(prev == -1 || nums[idx] > nums[prev]) ans = max(ans, 1 + solve(idx+1,idx, 0, nums));
-        }
-        if(prev == -1 || grt == 0)
-        {
-            if(prev == -1 || nums[idx] < nums[prev]) ans = max(ans, 1 + solve(idx+1,idx, 1, nums));
-        }
-
-        ans = max(ans, solve(idx+1,prev, grt, nums));
-
-        return dp[idx][prev+1][grt] = ans;
-    }
     int wiggleMaxLength(vector<int>& nums) {
-        memset(dp, -1, sizeof(dp));
-        return solve(0, -1, 0, nums);
+        int n = nums.size();
+        if(n < 2) return n;
+        int prevdiff = nums[1] - nums[0];
+        int currdiff = 0;
+
+        int len = (prevdiff == 0) ? 1 : 2;
+        
+        for(int i = 2; i<n; i++)
+        {
+            currdiff = nums[i] - nums[i-1];
+            if((prevdiff >= 0 && currdiff < 0) || (prevdiff <= 0 && currdiff > 0))
+            {
+                prevdiff = currdiff;
+                len++;
+            }
+        }
+
+        return len;
+
     }
 };
