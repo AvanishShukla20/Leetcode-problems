@@ -18,14 +18,18 @@ public:
         {
             for(int j=n-1; j>=i; j--)
             {
-                if(ispalindrome(i, j, s))
+                if(s[i] == s[j])
                 {
-                    if(j-i+1 > maxi)
+                    if(ispalindrome(i, j, s))
                     {
-                        ans = s.substr(i, j-i+1);
-                        maxi = j - i + 1;
+                        if(j-i+1 > maxi)
+                        {
+                            ans = s.substr(i, j-i+1);
+                            maxi = j - i + 1;
+                        }
                     }
                 }
+                
             }
         }
         return ans;
