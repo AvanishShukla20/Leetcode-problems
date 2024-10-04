@@ -10,7 +10,7 @@ public:
         ll targetrem = totalsum%p;
         if(targetrem == 0) return 0;
 
-        // we need to find min subarray len such that sum of subarray equals this targetrem
+        // we need to find min subarray len such that sum of subarray divided by p equals this targetrem
         ll prefix = 0;
         unordered_map<ll, int> mpp;
         mpp[0] = -1;
