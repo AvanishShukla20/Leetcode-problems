@@ -1,33 +1,29 @@
 class Solution {
 public:
-    void solve(int idx,vector<int>& nums, vector<int>& temp, vector<vector<int>>& ans, unordered_set<int>& st)
+    void solve(int i,vector<int>& nums,vector<int>& temp, vector<vector<int>>& vec,unordered_set<int>& st)
     {
-        // the idx here is basically keeping the count of that no of steps done are == nums.size() when reach end
-       if(idx == nums.size())
-       {
-            ans.push_back(temp);
-            return;
-       }
-
-       for(int i = 0; i< nums.size(); i++)
-       {
-        // notice that poore for loop me current element i.e nums[idx] ka koi significance nhi hai :O
-
-        if(st.find(nums[i]) == st.end())
+        if(i == nums.size())
         {
-            temp.push_back(nums[i]);
-            st.insert(nums[i]);
-            solve(idx+1, nums, temp, ans, st);
-            temp.pop_back();
-            st.erase(nums[i]);
+            vec.push_back(temp);
         }
-       }
+
+        for(int j = 0; j < nums.size(); j++)
+        {
+            if(st.count(j) == 0)
+            {
+                st.insert(j);
+                temp.push_back(nums[j]);
+                solve(i+1, nums, temp, vec, st);
+                temp.pop_back();
+                st.erase(j);
+            }
+        }
     }
     vector<vector<int>> permute(vector<int>& nums) {
-        vector<vector<int>> ans;
+        vector<vector<int>> vec;
         vector<int> temp;
         unordered_set<int> st;
-        solve(0, nums, temp, ans, st);
-        return ans;
+        solve(0, nums, temp, vec, st);
+        return vec;
     }
 };
