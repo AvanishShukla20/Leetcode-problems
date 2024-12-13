@@ -13,13 +13,13 @@ public:
             pfSum[i] = pfSum[i-1] + nums[i-1];
         }
 
-        for(int i = 0; i<n ;i++)
+        for(int i = 1; i<=n ;i++)
         {
-            ll minPrefixSum = min_pfSum[(i+1)%k];
-            ll currPrefixSum = pfSum[i+1];
+            ll minPrefixSum = min_pfSum[i%k];
+            ll currPrefixSum = pfSum[i];
             if(minPrefixSum != 1e18) ans = max(ans, currPrefixSum - minPrefixSum);
 
-            min_pfSum[(i+1)%k] = min(minPrefixSum, currPrefixSum);
+            min_pfSum[i%k] = min(minPrefixSum, currPrefixSum);
         }
 
         return ans;
