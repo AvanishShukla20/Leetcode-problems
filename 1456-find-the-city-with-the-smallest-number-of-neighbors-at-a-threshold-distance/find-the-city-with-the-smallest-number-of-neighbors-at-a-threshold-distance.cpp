@@ -10,8 +10,8 @@ public:
             adj[edges[i][0]].push_back({edges[i][1], edges[i][2]});
             adj[edges[i][1]].push_back({edges[i][0], edges[i][2]});
         }
-
-        priority_queue<P, vector<P>, greater<P>> pq1;
+        int ans = -1e9;
+        int mincnt = 1e9;
 
         for(int i=0; i<n; i++)
         {
@@ -50,28 +50,12 @@ public:
                 if(i != start && dist[i]<=distanceThreshold) cnt++;
             }
             
-            cout<<endl;
-            pq1.push({cnt, start});
+            if(cnt <= mincnt)
+            {
+                mincnt = cnt;
+                ans = start;
+            }
             
-        }
-
-        
-        int ans = 1000;
-        int md = 1e9;
-        while(!pq1.empty())
-        {
-            auto p = pq1.top();
-            pq1.pop();
-            if(ans == 1000)
-            {
-                ans = p.second;
-                md = p.first;
-            }
-            else if(md == p.first)
-            {
-                ans = p.second;
-            }
-            else break;
         }
         
         return ans;
