@@ -1,18 +1,38 @@
 class Solution {
 public:
-    int lengthOfLIS(vector<int>& nums) {
-        int n = nums.size();
-        vector<int> dp(n, 1); /* dp[i] represents longest increasing subsequence uptill this idx i */
-        int maxi = 1;
-        for(int i = 0; i< n; i++)
+    int solve(int& el, vector<int>& ans)
+    {
+        int res = 0, low = 0, high = ans.size()-1,mid;
+        while(low <= high)
         {
-            for(int j = 0; j < i; j++)
+            mid = low + (high-low)/2;
+            if(ans[mid] >= el)
             {
-                if(nums[j] < nums[i] && dp[i] < dp[j] + 1)  dp[i] = dp[j] + 1;
-                maxi = max(maxi, dp[i]);
+                res = mid;
+                high = mid-1;
             }
+            else low = mid+1;
         }
 
-        return maxi;
+        return res;
+    }
+    int lengthOfLIS(vector<int>& nums) {
+        vector<int> ans;
+        ans.push_back(nums[0]);
+
+        for(int i=1; i<nums.size(); i++)
+        {
+            if(ans.back() < nums[i])
+            {
+                ans.push_back(nums[i]);
+            }
+            else
+            {
+                int idx = solve(nums[i], ans);
+                ans[idx] = nums[i];
+            }
+        }
+        for(auto it : ans) cout<<it<<" ";
+        return ans.size();
     }
 };
