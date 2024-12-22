@@ -1,22 +1,18 @@
 class MyCalendar {
 public:
-    set<pair<int, int>> st;
+    vector<vector<int>> vec;
     MyCalendar() {
-        
     }
     
-    bool book(int start, int end) {
-        auto it = st.lower_bound({start, end});
-
-        if(it != st.end() && it->first < end) return false; 
-
-        if(it != st.begin())
+    bool book(int startTime, int endTime) {
+        int prevs,preve;
+        bool p = true;
+        for(int i=0; i<vec.size(); i++)
         {
-            auto prevtoLow_bound = prev(it);
-            if(prevtoLow_bound->second > start) return false;
+            prevs = vec[i][0], preve = vec[i][1];
+            if(preve > startTime && prevs < endTime) return false;
         }
-        
-        st.insert({start, end});
+        vec.push_back({startTime, endTime});
         return true;
     }
 };
@@ -24,5 +20,5 @@ public:
 /**
  * Your MyCalendar object will be instantiated and called as such:
  * MyCalendar* obj = new MyCalendar();
- * bool param_1 = obj->book(start,end);
+ * bool param_1 = obj->book(startTime,endTime);
  */
