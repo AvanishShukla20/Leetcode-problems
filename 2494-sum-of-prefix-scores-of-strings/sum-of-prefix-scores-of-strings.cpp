@@ -1,63 +1,66 @@
-class TrieNode {
-public:
-    unordered_map<char, TrieNode*> children;
-    int prefixCount; // Tracks the number of words sharing this prefix
-    TrieNode() {
-        prefixCount = 0;
-    }
-};
-
-class Trie {
-public:
-    TrieNode* root;
-
-    Trie() {
-        root = new TrieNode();
-    }
-
-    // Insert function to build the Trie and track prefix counts
-    void insert(const string& word) {
-        TrieNode* current = root;
-        for (const char& ch : word) {
-            if (current->children.find(ch) == current->children.end()) {
-                current->children[ch] = new TrieNode();
-            }
-            current = current->children[ch];
-            current->prefixCount++;
-        }
-    }
-
-    // Calculate the prefix score for a given word
-    int getPrefixScore(const string& word) {
-        TrieNode* current = root;
-        int score = 0;
-        for (const char& ch : word) {
-            if (current->children.find(ch) == current->children.end()) {
-                break;
-            }
-            current = current->children[ch];
-            score += current->prefixCount;
-        }
-        return score;
-    }
+struct trieNode{
+    int cnt =0;
+    trieNode* children[26];
+    // note in this implementation we do not need isEndOfWord So, we neglect it
 };
 
 class Solution {
 public:
+    trieNode* getTrieNode()
+    {
+        trieNode* node = new trieNode();
+        for(int i=0; i<26; i++) node->children[i] = NULL;
+        node->cnt = 0;
+        return node;
+    }
+
+    void insert(string& s, trieNode* root)
+    {
+        trieNode* curr = root;
+        for(auto &ch : s)
+        {
+            if(curr->children[ch-'a'] == NULL)
+            {
+                curr->children[ch-'a'] = getTrieNode(); 
+            }
+            // wrong thing you were doing -> curr->cnt++
+            //correct->
+            curr->children[ch-'a']->cnt += 1;
+            curr = curr->children[ch-'a'];
+        }
+    }
+    int cntPrefixes(string&s, trieNode* root)
+    {
+        trieNode* temp = root;
+        int ans =0;
+        for(int i=0;i<s.size();i++)
+        {
+            char ch = s[i];
+            if(root->children[ch-'a'] != NULL)
+            {
+                ans += root->children[ch-'a']->cnt;
+                root = root->children[ch-'a'];
+            }
+        }
+        return ans;
+    }
     vector<int> sumPrefixScores(vector<string>& words) {
-        Trie trie;
-
-        // Build the Trie with all the words
-        for (const string& word : words) {
-            trie.insert(word);
+        int n = words.size();
+        trieNode* root = getTrieNode();
+        vector<int> vec(n, 0);
+        for(auto &str : words)
+        {
+            insert(str, root);
         }
 
-        // Calculate the prefix scores for each word
-        vector<int> result;
-        for (const string& word : words) {
-            result.push_back(trie.getPrefixScore(word));
+        int ans = 0;
+
+        for(int i=0; i<n; i++)
+        {
+            ans = cntPrefixes(words[i], root);
+            vec[i] = ans;
         }
 
-        return result;
+        return vec;
     }
 };
