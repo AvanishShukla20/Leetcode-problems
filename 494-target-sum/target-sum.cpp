@@ -1,24 +1,26 @@
 class Solution {
 public:
-    int solve(int idx, int target, vector<int>& nums, vector<unordered_map<int, int>>& dp)
+    int solve(int idx, int& val,int& target, vector<int>& nums)
     {
-        if(idx == 0)
+        if(idx == nums.size())
         {
-            if(nums[0] == 0 && target == 0) return 2;
-            if(nums[0] == abs(target)) return 1;
+            if(val == target) return 1;
             return 0;
         }
 
-        if(dp[idx].find(target) != dp[idx].end()) return dp[idx][target];
+        val += -1*nums[idx];
+        int x = solve(idx+1, val, target, nums);
+        val -= -1*nums[idx];
 
-        int  minus = solve(idx -1, target - nums[idx],nums, dp);
-        int plus =  solve(idx - 1, target + nums[idx], nums, dp);
+        val += nums[idx];
+        int y = solve(idx+1, val, target, nums);
+        val -= nums[idx];
 
-        return dp[idx][target] = minus + plus;
+        return x+y;
+
     }
     int findTargetSumWays(vector<int>& nums, int target) {
-        int n = nums.size();
-        vector<unordered_map<int, int>> dp(n);
-        return solve(n-1, target, nums, dp);
+        int val = 0;
+        return solve(0, val, target, nums);
     }
 };
