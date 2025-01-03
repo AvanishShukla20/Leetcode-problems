@@ -26,7 +26,10 @@ public:
         {
             for(int j=0; j<n; j++)
             {
-                ans = max(ans, longestPath(i, j, matrix, dp));
+                if(dp[i][j] == 0)
+                {
+                    ans = max(ans, longestPath(i, j, matrix, dp));
+                }
             }
         }
         return ans;
