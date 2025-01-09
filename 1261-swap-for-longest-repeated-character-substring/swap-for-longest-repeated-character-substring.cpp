@@ -24,13 +24,23 @@ public:
             int len = groups[i].second;
 
             // Case 1: Use all characters in the current group
-            ans = max(ans, len + (freq[c] > len ? 1 : 0));
+            if(freq[c] > len)
+            {
+                len += 1;
+            }
+            ans = max(ans, len);
 
-            // Case 2: Merge two groups separated by one character (if possible)
-            if (i > 0 && i + 1 < groups.size() && groups[i - 1].first == groups[i + 1].first &&
+            // Case 2: Merge two groups separated by one character 
+            if (i > 0 && i < groups.size()-1 && groups[i - 1].first == groups[i + 1].first &&
                 groups[i].second == 1) {
-                int mergedLen = groups[i - 1].second + groups[i + 1].second;
-                ans = max(ans, mergedLen + (freq[groups[i - 1].first] > mergedLen ? 1 : 0));
+
+
+                int mergedlen = groups[i - 1].second + groups[i + 1].second;
+                if(freq[groups[i - 1].first] > mergedlen)
+                {
+                    mergedlen += 1;
+                }
+                ans = max(ans, mergedlen); // i have an extra character to swap
             }
         }
 
