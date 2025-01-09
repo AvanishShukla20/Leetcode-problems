@@ -1,0 +1,1 @@
+<h2>maximum-coins-from-k-consecutive-bags Notes</h2><hr>Great Tough Implementation
