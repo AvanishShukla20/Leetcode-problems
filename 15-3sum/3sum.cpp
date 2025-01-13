@@ -1,40 +1,42 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-       vector<vector<int>> ans;
-       sort(nums.begin(), nums.end());
-       set<vector<int>> s;
-       int n = nums.size();
-       for(int i=0; i<n ; i++)
-       {
-           int j=i+1, k= n-1;
-           while(j < k)
-           {
-               int sum = nums[i]+nums[j]+nums[k];
-               if(sum > 0)
-               {
-                   k--; //bring down k by one step
-               }
-               else if(sum < 0)
-               {
-                   j++; //bring up j by one step
-               }
-               else
-               {
-                   //Case when sum == 0 found
-                   s.insert({nums[i], nums[j], nums[k]});
-                   j++; 
-                   k--;
-                   
-               } 
-           }
-       } 
+        int n=nums.size();
 
-        for(auto triplet : s)
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> ans;
+        set<vector<int>> ansSet;
+
+
+        for(int i = 0; i<n; i++)
         {
-            ans.push_back(triplet);
+
+            //using two pointers and total sum algorithm to get sum = 0
+            int j = i+1;
+            int k = n-1; // the two pointers we will be using are (j, k)
+
+            while(j<n && j < k)
+            {
+                int sum = nums[i]+nums[j]+nums[k];
+
+                if(sum > 0)
+                {
+                    k--;
+                }
+                else if(sum < 0) j++;
+                else
+                {
+                    vector<int> temp = {nums[i], nums[j], nums[k]};
+                    sort(temp.begin(), temp.end());
+                    ansSet.insert(temp);
+                    k--;
+                    j++;
+                }
+            }
+            
         }
-       return ans;
+
+        for(auto &it : ansSet) ans.push_back(it);
+        return ans;
     }
 };
-
