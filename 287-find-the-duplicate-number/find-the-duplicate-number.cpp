@@ -14,7 +14,7 @@ public:
             {
                 if(nums[i]<=mid) cnt++;
             }
-
+            cout<<low<<" "<<high<<" "<<mid<<" cnt : "<<cnt<<endl;
             if(cnt > mid)
             {
                 high = mid;
