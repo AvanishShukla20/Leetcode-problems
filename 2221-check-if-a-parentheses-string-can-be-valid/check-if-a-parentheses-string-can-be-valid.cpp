@@ -2,51 +2,40 @@ class Solution {
 public:
     bool canBeValid(string s, string locked) {
         int n=s.size();
-        stack<int> openBraces; // store indices of open braces with locked = '1'
-        stack<int> flexibleBraces;
+        if(n%2 != 0) return false;
+        int opencnt = 0;
 
         for(int i=0; i<n; i++)
         {
-            char ch = s[i];
-            char num = locked[i];
-
-            if(num == '0')
+            if(s[i] == '(' || locked[i] == '0')
             {
-                flexibleBraces.push(i);
+                // i can treat this idx as open bracket
+                opencnt++;
             }
             else
             {
-                if(ch == '(')
-                {
-                    openBraces.push(i);
-                }
-                else
-                {
-                    if(openBraces.empty() && flexibleBraces.empty())
-                    {
-                        // there is no one to balance
-                        return false;
-                    }
-                    if(!openBraces.empty()) openBraces.pop();
-                    else if(!flexibleBraces.empty()) flexibleBraces.pop();
-                }
+                opencnt--;
+                if(opencnt < 0) return false;
             }
         }
 
-        while(!openBraces.empty() && !flexibleBraces.empty())
+        // if opencnt > 0 or opencnt == 0 Though once ust check the closecnt from right to check to confirm for all testcases
+        int closedcnt =0;
+
+        for(int i=n-1; i>=0; i--) //  right to left
         {
-            if(openBraces.top() >= flexibleBraces.top()) return false;
-            openBraces.pop();
-            flexibleBraces.pop();
+            if(s[i] == ')' || locked[i] == '0')
+            {
+                // i can treat this idx as closed bracket
+                closedcnt++;
+            }
+            else
+            {
+                closedcnt--;
+                if(closedcnt < 0) return false;
+            }
         }
 
-        
-        if(openBraces.empty())
-        {
-            if(flexibleBraces.size()%2 == 0) return true;
-            return false;
-        }
-        
-        return false;
+        return true;
     }
 };
