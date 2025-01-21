@@ -1,31 +1,39 @@
 class Solution {
 public:
-    int solve(int idx, vector<int>& nums, vector<int>& dp)
+    int solve(int i, int prev, bool& p, vector<int>& nums, vector<vector<vector<int>>>& dp)
     {
-        if(idx < 0) return 0;
-
-        if(dp[idx] != -1) return dp[idx];
-        //include
-        int left = solve(idx - 2, nums, dp) + nums[idx];
-        //exclude
-        int right = solve(idx - 1, nums, dp);
-
-        return dp[idx] = max(left, right);
-    }
-
-
-    int rob(vector<int>& nums) {
-        int n = nums.size();
-        if(n == 1) return nums[0];
-        vector<int> temp1, temp2;
-        for(int i = 0; i < n; i++)
+        if(i == nums.size())
         {
-            if(i != 0) temp1.push_back(nums[i]);
-            if(i != n-1) temp2.push_back(nums[i]);
+            return 0;
         }
 
-        vector<int> dp1(n , -1);
-        vector<int> dp2(n, -1);
-        return max( solve(temp1.size() - 1, temp1, dp1), solve(temp2.size() - 1, temp2, dp2));
+        if(dp[i][prev+1][p] != -1) return dp[i][prev+1][p];
+
+        int left = 0, right = 0;
+        if(prev == -1 || i > prev+1)
+        {
+            if(i == 0)
+            {
+                p = true;
+                left = nums[i] + solve(i+1, i, p, nums, dp);
+                p = false;
+            }
+            else if(i == nums.size()-1 && p == true)
+            {
+                left = solve(i+1, prev, p, nums, dp);
+            }
+            else left = nums[i] + solve(i+1, i, p, nums, dp);    
+        }
+
+
+        right = solve(i+1, prev, p, nums, dp);
+        return dp[i][prev+1][p] = max(left, right);
+    }
+    int rob(vector<int>& nums) {
+        int n=nums.size();
+        bool p = false;
+        vector<vector<vector<int>>> dp(n, vector<vector<int>>(n+1, vector<int> (2, -1)));
+
+        return solve(0, -1, p, nums, dp);
     }
 };
