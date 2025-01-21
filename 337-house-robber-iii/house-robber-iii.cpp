@@ -20,6 +20,8 @@ public:
         pair<int, int> leftPair  = solve(root->left);
         pair<int, int> rightPair = solve(root->right);
 
+        // {p, q} -> p is maxsum obtained if i include root q is maxsum if i don't include q
+
         //including the root i will add values gotten by not including the children
         int lsum = root->val + leftPair.second + rightPair.second;
         // not including the root
@@ -30,7 +32,7 @@ public:
     }
     int rob(TreeNode* root) {
         pair<int, int> ans = solve(root);
-        
+
         return max(ans.first, ans.second);
     }
 };
