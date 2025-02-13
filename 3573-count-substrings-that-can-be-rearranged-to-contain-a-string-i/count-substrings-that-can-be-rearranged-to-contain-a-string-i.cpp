@@ -1,59 +1,36 @@
 class Solution {
 public:
-    long long validSubstringCount(string word1, string word2) {
-        int n=word1.size(), m=word2.size();
-        vector<int> currwind(26, 0), reqwind(26, 0);
-        
-        // you will NEVER TOUCH THE FREQUENCIES IN REQWIND
-        for(int i=0; i<m; i++)
-        {
-            reqwind[word2[i]-'a']++;
+    bool isValid(unordered_map<char, int>& reqmpp, unordered_map<char, int>& currmpp) {
+        for (auto& it : reqmpp) {
+            if (currmpp[it.first] < it.second) 
+                return false;
         }
+        return true;
+    }
 
-        int k =m; // k will keep track of no of character remaining to be met under window
-        cout<<k<<endl;
-
-        int i=0, j=0;
+    long long validSubstringCount(string word1, string word2) {
+        unordered_map<char, int> currmpp, reqmpp;
+        int n = word1.size();
         long long ans = 0;
         
-        while(j<n)
-        {
-            char curr = word1[j];
-
-            // curr is required one ->
-
-            if(reqwind[curr-'a'] > 0)
-            {
-                // curr window doesn't have as muchh frequency of this required char as we need
-                if(currwind[curr-'a'] < reqwind[curr-'a'])
-                {
-                    k--;
-                }
-            }
-            
-            currwind[curr-'a']++;
-
-            while(k == 0)
-            {
-                // as far as wind contains all characters of word2
-                ans += (n-j);
-
-                char ch = word1[i];
-                currwind[ch-'a']--;
-                if(reqwind[ch-'a'] > 0)
-                {
-                    if(currwind[ch-'a'] < reqwind[ch-'a'])
-                    {
-                        k++;
-                    }
-                }
-                i++;
-            }
-            j++;
-            
+        // Populate frequency map for word2
+        for (char ch : word2) {
+            reqmpp[ch]++;
         }
 
-        /*note i am never disturbing the reqwind as it tells me cnt of all required chars of word2 */
+        int i = 0;  // Left pointer for sliding window
+
+        for (int j = 0; j < n; j++) {
+            currmpp[word1[j]]++;  // Expand the window
+
+            // Shrink the window from the left while it's valid
+            while (isValid(reqmpp, currmpp)) {
+                ans += (n - j);  // Count all substrings starting at i
+                currmpp[word1[i]]--;  // Remove leftmost character
+                if (currmpp[word1[i]] == 0) currmpp.erase(word1[i]);  // Cleanup
+                i++;  // Move left pointer
+            }
+        }
 
         return ans;
     }
