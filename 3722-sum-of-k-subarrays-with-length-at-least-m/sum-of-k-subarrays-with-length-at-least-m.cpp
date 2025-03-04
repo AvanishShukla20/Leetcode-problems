@@ -1,32 +1,30 @@
 class Solution {
 public:
-    const int NEG_INF = -1000000000;
-    int dp[2002][2002][2];
-    int solve(const vector<int>& nums, const vector<int>& prefix, int index, int remaining, int canExtend, int m) {
-        if(index == nums.size()) return remaining == 0 ? 0 : NEG_INF;
-        if(dp[index][remaining][canExtend] != -1) return dp[index][remaining][canExtend];
-
-        int best = NEG_INF;
-        if(canExtend) {
-            best = max(best, nums[index] + solve(nums, prefix, index + 1, remaining, 1, m));
-            best = max(best, solve(nums, prefix, index, remaining, 0, m));
-        } else {
-            if(remaining == 0) return 0;
-            best = max(best, solve(nums, prefix, index + 1, remaining, 0, m));
-            if(nums.size() - index >= m) {
-                int currentSum = prefix[index + m] - prefix[index];
-                best = max(best, currentSum + solve(nums, prefix, index + m, remaining - 1, 1, m));
-            }
-        }
-
-        return dp[index][remaining][canExtend] = best;
-    }
-    
+    vector<vector<long long>> dp;
     int maxSum(vector<int>& nums, int k, int m) {
         int n = nums.size();
-        vector<int> prefix(n + 1, 0);
-        for(int i = 0; i < n; i++) prefix[i + 1] = prefix[i] + nums[i];
-        memset(dp, -1, sizeof(dp));
-        return solve(nums, prefix, 0, k, 0, m);
+        
+        vector<long long> prefix(n+1, 0LL);
+        for(int i = 1; i <= n; i++) prefix[i] = prefix[i-1] + nums[i-1]; // n
+
+        dp.resize(n+1,vector<long long>(k+1,INT_MIN));
+    
+        for(int i = 0; i <= n; i++){ // n
+            dp[i][0] = 0;
+        }
+    
+        for (int j = 1; j <= k; j++) { // k
+            long long bestOffset = INT_MIN;
+            for (int i = 1; i <= n; i++) { // n
+                dp[i][j] = dp[i-1][j]; // op1
+                if (i - m >= 0) {
+                    bestOffset = max(bestOffset, dp[i - m][j-1] - prefix[i - m]);
+                }
+                dp[i][j] = max(dp[i][j], prefix[i] + bestOffset);
+            }
+        }
+        return dp[n][k];
     }
+    // tc = O(n*k) = O(2000^2)
+    // sc = O(n*k) = O(2000^2)
 };
