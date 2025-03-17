@@ -1,32 +1,24 @@
 class Solution {
 public:
-    int solve(int i, int prev,int last_idx, vector<int>& nums, vector<vector<int>>& dp)
+    int solve(int i, int j, int prev, vector<int>& nums, vector<vector<int>>& dp)
     {
-        if(i >= last_idx)
-        {
-            return 0;
-        }
+        if(i >= j) return 0;
 
         if(dp[i][prev+1] != -1) return dp[i][prev+1];
 
-        int left = 0, right = 0;
-        if(prev == -1 || i > prev+1)
-        {
-            left = nums[i] + solve(i+1, i, last_idx, nums, dp);    
-        }
+        int l = nums[i] + solve(i+2, j, i, nums, dp);
+        int r = solve(i+1, j, prev, nums, dp);
 
-
-        right = solve(i+1, prev, last_idx, nums, dp);
-        return dp[i][prev+1] = max(left, right);
+        return dp[i][prev+1] = max(l, r);
     }
     int rob(vector<int>& nums) {
         int n=nums.size();
         if(n==1) return nums[0];
-        
-        vector<vector<int>> dp(n, vector<int>(n+1,-1));
-        int ans1 = solve(0, -1, n-1, nums, dp);
-        vector<vector<int>> dp2(n, vector<int>(n+1, -1));
-        int ans2 = solve(1, -1, n, nums, dp2);
+        vector<vector<int>> dp(n+1, vector<int> (n+1, -1));
+        int ans1 = solve(0, n-1, -1, nums, dp);
+        vector<vector<int>> dp2(n+1, vector<int> (n+1, -1));
+        int ans2 = solve(1, n, -1, nums, dp2);
+
         return max(ans1, ans2);
     }
 };
