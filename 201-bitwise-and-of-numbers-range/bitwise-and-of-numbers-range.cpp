@@ -1,12 +1,19 @@
 class Solution {
 public:
-    int rangeBitwiseAnd(int left, int right) {   
-        while(right > left)
+    int rangeBitwiseAnd(int left, int right) {
+        int  cnt = 0;
+        while(left != right)
         {
-            //removing leftmost set bit each time and initialise that value into right again
-            right = right & (right - 1);
+            left = left >> 1;
+            right = right >> 1;
+            cnt++;
         }
 
-        return right;
+        int ans = left;
+        while(cnt--)
+        {
+            ans = ans << 1;
+        }
+        return ans;
     }
 };
