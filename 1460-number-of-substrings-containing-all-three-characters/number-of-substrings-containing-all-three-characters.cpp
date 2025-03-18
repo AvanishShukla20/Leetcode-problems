@@ -1,19 +1,30 @@
 class Solution {
 public:
-    int numberOfSubstrings(string s) {
-        vector<int> idxStorage(3, -1);
-        int res = 0;
-        for(int i = 0; i < s.size(); i++)
+    bool isvalid(vector<int>& vec)
+    {
+        for(int i=0; i<3; i++)
         {
-            idxStorage[s[i] - 'a'] = i;
-            int minEl = min(idxStorage[0], min(idxStorage[1],idxStorage[2]));
-
-            if(minEl != -1)
-            {
-                res += minEl + 1;
-            }
+            if(vec[i] < 1) return false;
         }
-
-        return res;
+        return true;
+    }
+    
+    int numberOfSubstrings(string s) {
+        int n = s.size();
+        vector<int> vec(3, 0);
+        int ans = 0;
+        int j=0;
+        for(int i=0; i<n; i++)
+        {
+            vec[s[i]-'a']++;
+            while(isvalid(vec))
+            {
+                vec[s[j]-'a']--;
+                j++;
+            }
+            int idx = j-1;
+            ans += (idx+1);
+        }
+        return ans;
     }
 };
