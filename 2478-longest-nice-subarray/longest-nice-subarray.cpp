@@ -1,30 +1,20 @@
 class Solution {
 public:
     int longestNiceSubarray(vector<int>& nums) {
-        
-        int ans = 0;
-        int UnionBit = 0;
-        int removeIdx = 0;
-
-        for(int i=0; i < nums.size(); i++)
+        int n=nums.size();
+        int cum = nums[0];
+        int j = 0;
+        int ans = 1;
+        for(int i=1; i<n; i++)
         {
-            int newElement = nums[i];
-
-            while(removeIdx <= i && (UnionBit & newElement) != 0)
+            while(j<=i && (cum&nums[i]) != 0)
             {
-                int removeEl = nums[removeIdx];
-
-                // remove the contribution of OR of this removeEl by performing XOR opeartion
-
-                UnionBit = UnionBit ^ removeEl;
-                removeIdx++;  
+                cum ^= nums[j];
+                j++;
             }
 
-            //now we are good to attach the element in Unionbit
-
-            UnionBit |= newElement;
-
-            ans = max(ans, i - removeIdx + 1);
+            if((cum&nums[i]) == 0) ans = max(ans, i-j+1);
+            cum |= nums[i];
         }
 
         return ans;
