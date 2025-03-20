@@ -1,29 +1,30 @@
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        if(intervals.size() == 0 || intervals.size() == 1) return intervals;
-
+        int n=intervals.size();
+        
         sort(intervals.begin(), intervals.end());
 
+        int h=intervals[0][1], l = intervals[0][0];
         vector<vector<int>> ans;
-        vector<int> tempV = {intervals[0][0], intervals[0][1]}; // store interval (NOW -> {1,3} stored)
-
-         
-        for(auto range : intervals)
+        for(int i = 1; i<n; i++)
         {
-            if(range[0] <= tempV[1])
+            int a = intervals[i][0], b=intervals[i][1];
+            if(a <= h)
             {
-                tempV[1] = max(range[1], tempV[1]);
+                // overlap since sorted So it will always be a >= l
+                h = max(h, b);
             }
             else
             {
-                ans.push_back(tempV);
-                tempV[0] = range[0];
-                tempV[1] = range[1];
+                ans.push_back({l, h});
+                l = a;
+                h = b;
             }
         }
 
-        ans.push_back(tempV);
+        ans.push_back({l, h});
+
         return ans;
     }
 };
