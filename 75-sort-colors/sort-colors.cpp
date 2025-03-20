@@ -1,15 +1,29 @@
 class Solution {
 public:
     void sortColors(vector<int>& nums) {
-        
-        for(int i=0; i < nums.size(); i++)
+        int n=nums.size();
+        int start = 0, end = n-1, k=0;
+
+        while(k <= end)
         {
-            int j = i;
-            while(j>0 && nums[j] < nums[j-1])
+            if(nums[k]==2)
             {
-                swap(nums[j-1], nums[j]);
-                j--;
+                swap(nums[k], nums[end]);
+                end--;
+                continue;
+                // k++;
+                // no k++ is done here because -> of VERY IMP TESTCASE -> [2, 1, 2] or [1, 2, 0]
             }
+            else if(nums[k]==0)
+            {
+                swap(nums[k], nums[start]);
+                start++;
+               
+            }
+            k++;
+
+            
         }
+
     }
 };
