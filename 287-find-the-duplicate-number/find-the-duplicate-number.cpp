@@ -1,27 +1,38 @@
 class Solution {
 public:
-    int findDuplicate(vector<int>& nums) {
-        int n=nums.size();
-        int low = 1, high = n-1, mid;
-
-        while(low < high)
+    int countAllOccur(int mid, vector<int>& nums)
+    {
+        int cnt = 0;
+        for(int i=0; i<nums.size(); i++)
         {
-            mid = low+(high-low)/2;
-
-            int cnt = 0;
-
-            for(int i=0;i<n;i++)
+            if(nums[i] <= mid)
             {
-                if(nums[i]<=mid) cnt++;
+                cnt++;
             }
-            cout<<low<<" "<<high<<" "<<mid<<" cnt : "<<cnt<<endl;
-            if(cnt > mid)
+        }
+        return cnt;
+    }
+
+    int findDuplicate(vector<int>& nums) {   
+        int n=nums.size();
+        int l = 1, h = n, mid, ans = 0;
+        
+        while(l <= h)
+        {
+            mid = l + (h-l)/2;
+
+            //function to count all element occurrence <= mid
+            int cnt = countAllOccur(mid, nums);
+            int idealcnt = mid;
+
+            if(cnt > idealcnt)
             {
-                high = mid;
+                ans = mid;
+                h = mid-1;
             }
-            else low = mid+1;
+            else l = mid+1;
         }
 
-        return low;
+        return ans;
     }
 };
