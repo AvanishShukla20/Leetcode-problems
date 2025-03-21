@@ -1,23 +1,38 @@
 class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
-      // most optimum solution ->
-      int n = matrix.size(),m = matrix[0].size();
-      int  low =0, high =  n*m -1, mid;
-      while(low <= high)
-      {
-          mid = low + (high-low)/2;
-          //converting mid (1d data) into row and column no (2d coordinates) -> we use m (i.e no of elements per row) to calculate
-          int rowNo = mid / m;
-          int colNo = mid % m;
+        int m = matrix.size(), n=matrix[0].size();
+        int rlow = 0, rhigh = m-1, rmid;
+        int val = target;
+        while(rlow <= rhigh)
+        {
+            rmid = rlow + (rhigh-rlow)/2;
 
-          if(matrix[rowNo][colNo] == target) return true;
+            if(matrix[rmid][0] <= val && matrix[rmid][n-1] >= val)
+            {
+                // search in logn time
+                int jl = 0, jh = n-1, mid;
+                while(jl <= jh)
+                {
+                    mid = jl + (jh-jl)/2;
 
-          else if (matrix[rowNo][colNo] > target) high = mid -1;
+                    if(val == matrix[rmid][mid]) return true;
+                    else if(val < matrix[rmid][mid])
+                    {
+                        jh = mid-1;
+                    }
+                    else jl = mid+1;
+                }
 
-          else low = mid+1;
-      }
+                break;
+            }
+            else if(val < matrix[rmid][0])
+            {
+                rhigh = rmid-1;
+            }
+            else rlow = rlow + 1;
+        }
 
-      return false;
+        return false;
     }
 };
