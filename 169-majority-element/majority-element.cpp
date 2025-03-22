@@ -1,30 +1,19 @@
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
+        int n=nums.size(), cnt =0, candidate = 0;
 
-        /*
-        BOYER MOORE ALGORITHM
-        for any element to have ocurrence greater than N/2 its occurrence must Dominate
-        over the total no of elements (other than this element) present in that array 
-        */
-
-        int ele = 0;
-        int freq = 0;
-        for(int i=0; i< nums.size(); i++)
+        for(int i=0; i<n; i++)
         {
-            if(freq == 0)
+            if(cnt == 0)
             {
-                ele = nums[i];
-                freq++;
+                candidate = nums[i];
+                cnt = 1;
             }
-            else
-            {
-                if(nums[i] != ele) freq--;
-                else freq++;
-            }
-
+            else if(candidate != nums[i]) cnt--;
+            else cnt++;
         }
 
-        return ele;
+        return candidate;
     }
 };
