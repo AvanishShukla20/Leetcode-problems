@@ -12,18 +12,31 @@ class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
         if(!head || !head->next) return head;
-        ListNode* prev = NULL;
-        ListNode* curr = head;
-        ListNode* currnext = NULL;
-
-        while(curr != NULL)
+        ListNode* i = head;
+        ListNode* j = head->next;
+        ListNode* k = NULL;
+        if(j->next != NULL)
         {
-            //store next node ka pointer
-            currnext = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr=currnext;
+            k = j->next;
         }
-        return prev;
+
+        i->next = NULL;
+
+        while(k != NULL)
+        {
+            j->next = i;
+            i = j;
+            j = k;
+            k = k->next;
+        }
+
+        j->next = i;  
+
+        return j;
+
+        /* the fatal mistake is
+        1->2->3->4 If
+        You will apply above logic then result will be like 1->2->1
+        */
     }
 };
