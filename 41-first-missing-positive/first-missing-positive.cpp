@@ -2,8 +2,10 @@ class Solution {
 public:
     int firstMissingPositive(vector<int>& nums) {
         int n=nums.size();
-        sort(nums.begin(), nums.end());
-        if(nums[0] > 1) return 1;
+        int mini = *min_element(nums.begin(), nums.end());
+        
+        if(mini > 1) return 1;
+
         bool isone = false;
         for(int i=0; i<n; i++)
         {
@@ -16,18 +18,20 @@ public:
 
         if(isone == false) return 1;
 
-        int ans = INT_MAX;
+        unordered_set<long long> st(nums.begin(), nums.end());
 
-        for(int i=0; i<n-1; i++)
+        long long ans = LLONG_MAX;
+
+        for(int i=0; i<n; i++)
         {
-            if(nums[i] > 0 && nums[i] < nums[i+1] - 1)
-            {
-                ans = min(ans, nums[i]+1);
-            }
+            long long v = (long long) nums[i]+1;
+            if(nums[i] < 0) continue;
+            else if(st.find(v) == st.end()) ans = min(ans, v);
         }
-
-        if(ans == INT_MAX) ans = nums[n-1] + 1;
         
+        long long maxi = *max_element(nums.begin(), nums.end());
+
+        if(ans == LLONG_MAX) ans = maxi + 1;
         return ans;
     }
 };
