@@ -11,63 +11,61 @@
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        if(!list1) return list2;
+        if(!list2) return list1;
+        
+        ListNode* l = list1, *lnext = NULL;
+        ListNode* r = list2, *rnext = NULL;
 
-        /* MY CODE (Long lines)
-        part 1 -> 
-        if(list1 == NULL and list2 == NULL)
-        {
-            return NULL;
-        }
-        else if(list1 != NULL and list2 == NULL)
-        {
-            return list1;
-        }
-        else if (list1 == NULL and list2 != NULL)
-        {
-            return list2;
-        }
-        */
+        ListNode* newhead = NULL, *temp = NULL;
 
-        //updated base case 
-
-        if(list1 == NULL)
+        if(l->val <= r->val) 
         {
-            return list2;
+            temp = l;
+            l = l->next;
         }
-        if(list2 == NULL)
+        else 
         {
-            return list1;
+            temp = r;
+            r = r->next;
         }
 
-        /* Your Implementation (Wrong) 
-        ListNode* receivedNode = mergeTwoLists(list1->next, list2->next);
+        newhead = temp;
 
-        if(list1->val <= list2->val)
+        while(l && r)
         {
-            list1->next = list2;
-            list2->next = receivedNode;
-            return list1;
+        lnext = l->next;
+        rnext = r->next;
+
+        if(l->val <= r->val)
+        {
+            temp->next = l;
+            l = lnext;
+            temp = temp->next;
         }
         else
         {
-            list2->next = list1;
-            list1->next = receivedNode;
-            return list2;
-        }*/
-
-        //correct ->
-
-        if(list1 ->val <= list2 ->val)
-        {
-            ListNode* rec1 = mergeTwoLists(list1 -> next, list2);
-            list1->next = rec1;
-            return list1;
+            temp->next = r;
+            r = rnext;
+            temp=temp->next;
         }
-        else
-        {
-            ListNode* rec2 = mergeTwoLists(list1, list2 -> next);
-            list2 ->next = rec2;
-            return list2;
+
         }
+
+        while(l)
+        {
+            temp->next = l;
+            l = l->next;
+            temp = temp->next;
+        }
+
+        while(r)
+        {
+            temp->next = r;
+            r = r->next;
+            temp = temp->next;
+        }
+
+        return newhead;
     }
 };
