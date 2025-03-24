@@ -10,23 +10,20 @@
  */
 class Solution {
 public:
-    ListNode* reverseLogic(ListNode* head, ListNode* newHead) {
-        if(head->next==NULL)
-        {
-            head->next = newHead;
-            return head;
-        }
-        ListNode* getNode = reverseLogic(head->next,head);
-        head ->next = newHead;
-        newHead->next = NULL;
-        return getNode;
-
-    }
     ListNode* reverseList(ListNode* head) {
-        if(head == NULL || head->next == NULL) return head;
-        //it is very important to realise WHY (head,head) is passed as argument 
-        return reverseLogic(head,head);
+        if(!head || !head->next) return head;
+        ListNode* prev = NULL;
+        ListNode* curr = head;
+        ListNode* currnext = NULL;
 
-        // earlier you were passing (head->next,NULL) here 
+        while(curr != NULL)
+        {
+            //store next node ka pointer
+            currnext = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr=currnext;
+        }
+        return prev;
     }
 };
