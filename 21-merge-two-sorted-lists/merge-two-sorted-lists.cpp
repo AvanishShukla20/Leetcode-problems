@@ -13,43 +13,48 @@ public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
         if(!list1) return list2;
         if(!list2) return list1;
-        
-        ListNode* l = list1, *lnext = NULL;
-        ListNode* r = list2, *rnext = NULL;
 
-        ListNode* newhead = NULL, *temp = NULL;
+        ListNode* l = list1;
+        ListNode* r = list2;
 
-        if(l->val <= r->val) 
-        {
-            temp = l;
-            l = l->next;
-        }
-        else 
-        {
-            temp = r;
-            r = r->next;
-        }
+        // ListNode* newhead = NULL, temp = NULL; // Because->newhead is pointer while temp is taken as object in tthis type off declaration
 
-        newhead = temp;
+        ListNode* newhead = NULL;
+        ListNode* temp = NULL;
+         // newhead is now a pointer and temp is also a pointer
 
+         
         while(l && r)
         {
-        lnext = l->next;
-        rnext = r->next;
 
         if(l->val <= r->val)
         {
-            temp->next = l;
-            l = lnext;
-            temp = temp->next;
+            if(newhead == NULL)
+            {
+                newhead = new ListNode(l->val);
+                temp = newhead;
+            }
+            else
+            {
+                temp->next = new ListNode(l->val);
+                temp = temp->next;
+            }
+            l = l->next;
         }
         else
         {
-            temp->next = r;
-            r = rnext;
-            temp=temp->next;
+            if(newhead == NULL)
+            {
+                newhead = new ListNode(r->val);
+                temp = newhead;
+            }
+            else
+            {
+                temp->next = new ListNode(r->val);
+                temp = temp->next;
+            }
+            r = r->next;
         }
-
         }
 
         while(l)
