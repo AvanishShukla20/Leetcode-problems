@@ -8,29 +8,30 @@
  */
 class Solution {
 public:
+    
     ListNode *detectCycle(ListNode *head) {
-        if(head == NULL || head->next == NULL) return NULL;
+        // Idea : total distance from head and start of Cycle(X)  = total distance from Point of meet of slow == fast and the start of Cycle(X)
+        if(!head || !head->next) return NULL;
 
         ListNode* slow = head;
         ListNode* fast = head;
 
-        while(fast && fast->next)
+        while(fast != NULL && fast->next != NULL)
         {
             slow = slow->next;
             fast = fast->next->next;
-            if(slow == fast)
-            {
-                //create new pointer at head
-                ListNode* tr = head;
-                while(tr != slow)
-                {
-                    tr = tr->next;
-                    slow = slow->next;
-                }
-                return tr;
-            }
+            if(slow == fast) break;
         }
 
-        return NULL;
+        if(fast == NULL || fast->next == NULL) return NULL;
+        ListNode* p = head;
+
+        while(p != slow)
+        {
+            p= p->next;
+            slow = slow->next;
+        }
+
+        return p;
     }
 };
