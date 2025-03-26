@@ -56,14 +56,14 @@ public:
         ListNode* prev = NULL;
         ListNode* midnode = findMiddle(head);
         ListNode* revHead = reverse(midnode);
-        //learn the struucture of linked list {1, 2, 3, 2, 1}
-        ListNode* t = head;
-        while(t != NULL)
-        {
-            cout<<t->val<<endl;
-            t = t->next;
-        }
-        // it will be like 1->2->3<-2<-1 and 3->NULL
+        /*learn the struucture of linked list {1, 2, 3, 2, 1}
+            AFTER REVERSE OPERATION 
+            HEAD = 1->2->3->1->2->NULL
+            and 
+            REVHEAD = 1->2->3->NULL
+
+            That means REVHEAD WILL BE A NEW LINKED LIST CREATED BY REVERSE FUNCTION
+        */ 
         return compare(head, revHead);
     }
 };
