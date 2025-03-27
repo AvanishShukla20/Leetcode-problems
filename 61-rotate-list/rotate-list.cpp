@@ -10,36 +10,39 @@
  */
 class Solution {
 public:
+    ListNode* getseclast(ListNode* h)
+    {
+        ListNode* prev = NULL;
+        while(h->next)
+        {
+            prev = h;
+            h=h->next;
+        }
+        return prev;
+    }
+    int count(ListNode* he)
+    {
+        int cnt = 0;
+        while(he)
+        {
+            he = he->next;
+            cnt++;
+        }
+        return cnt;
+    }
     ListNode* rotateRight(ListNode* head, int k) {
-
         if(head == NULL || head->next == NULL) return head;
-        ListNode* temp = head;
-        int n = 0;
-        while (temp != NULL) {
-            temp = temp->next;
-            n++;
-        }
-
-        if(k >= n)
+        int size = count(head);
+        int m = k%size;
+        while(m--)
         {
-            k = k % n;
-        }
-        ListNode* last = head;
-        for (int i = 1; i < n - k; i++) {
-            last = last->next;
-
-        }
-        ListNode* p= last;
-
-        while(p->next != NULL)
-        {
-            p = p->next;
+            ListNode* sec = getseclast(head);
+            ListNode* temp = new ListNode(sec->next->val);
+            sec->next = NULL;
+            temp->next = head;
+            head = temp;
         }
 
-        p->next = head;
-        head = last->next;
-        last->next = NULL;
         return head;
-
     }
 };
