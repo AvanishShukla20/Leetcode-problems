@@ -1,70 +1,49 @@
 class Solution {
 public:
-    void fillnsl(vector<int>&res, vector<int>& nsl, vector<int>& nsr)
+    void fillns(vector<int>& arr, vector<int>& lvec, vector<int>& rvec)
     {
-        int n = res.size();
         stack<int> st;
+        lvec[0] = -1;
         st.push(0);
-
-        int i = 0;
-        while(i < n)
+        for(int i=1;i<arr.size(); i++)
         {
-            if(!st.empty() && res[st.top()] < res[i])
+            while(!st.empty() && arr[st.top()] >= arr[i])
             {
-                nsl[i] = st.top();
-                st.push(i);
+                st.pop();
             }
-            else
-            {
-                while(!st.empty() && res[st.top()] >= res[i])
-                {
-                    st.pop();
-                }
-                if(st.empty()) nsl[i] = -1;
-                else nsl[i] = st.top();
-                st.push(i);
-            }
-            i++;
+            if(st.empty()) lvec[i] = -1;
+            else lvec[i] = st.top();
+            st.push(i);
         }
 
-        while(!st.empty()) st.pop();
-        i = n-1;
-
-        while(i >= 0)
-        {
-            if(!st.empty() && res[st.top()] < res[i])
-            {
-                nsr[i] = st.top();
-                st.push(i);
-            }
-            else
-            {
-                while(!st.empty() && res[st.top()] >= res[i])
-                {
-                    st.pop();
-                }
-                if(st.empty()) nsr[i] = n;
-                else nsr[i] = st.top();
-                st.push(i);
-            }
-            i--;
+        while (!st.empty()) {
+            st.pop();
         }
 
+        int n=arr.size();
+        rvec[n-1] = n;
+        st.push(n-1);
 
-    }
-
-    void nsr(vector<int>& res, vector<int>& nsr)
-    {
-        stack<int> st;
-
+        for(int i=n-2; i>=0; i--)
+        {
+            while(!st.empty() && arr[st.top()] >= arr[i])
+            {
+                st.pop();
+            }
+            if(st.empty()) rvec[i] = n;
+            else rvec[i] = st.top();
+            st.push(i);
+        }
     }
     int maximalRectangle(vector<vector<char>>& matrix) {
-        int m = matrix.size(), n = matrix[0].size();
+        int m=matrix.size(), n=matrix[0].size();
+
+        // form heights array
         vector<vector<int>> heights(m, vector<int>(n, 0));
 
-        for(int j=0;j<n; j++) heights[0][j] = matrix[0][j] - '0';
+        for(int j=0;j<n;j++) heights[0][j] = matrix[0][j] - '0';
 
-        for(int i = 1; i<m; i++)
+        for(int i=1; i<m; i++)
         {
             for(int j=0; j<n; j++)
             {
@@ -75,15 +54,14 @@ public:
                 else heights[i][j] = 0;
             }
         }
-
+        
+        int maxarea=0;
         vector<int> res;
-
-        int maxarea = 0;
-        for(int i=0; i<m; i++)
+        for(int row = 0; row < m; row++)
         {
-            res = heights[i];
+            res = heights[row];
             vector<int> nsl(n), nsr(n);
-            fillnsl(res, nsl, nsr);
+            fillns(res, nsl, nsr);
 
             for(int j=0; j<n; j++)
             {
@@ -94,6 +72,5 @@ public:
         }
 
         return maxarea;
-
     }
 };
