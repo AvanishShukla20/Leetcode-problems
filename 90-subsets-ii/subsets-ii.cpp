@@ -2,23 +2,14 @@ class Solution {
 public:
     void solve(int idx, vector<int>& temp, vector<vector<int>>& ans, vector<int>& nums)
     {
-        // Ques -> 1 2 2 2 3 3
-        if(idx == nums.size())
+        ans.push_back(temp);
+        for(int i=idx; i<nums.size(); i++)
         {
-            ans.push_back(temp);
-            return;
+            if(i != idx && nums[i] == nums[i-1]) continue;
+            temp.push_back(nums[i]);
+            solve(i+1, temp, ans, nums);
+            temp.pop_back();
         }
-        
-        temp.push_back(nums[idx]);
-        solve(idx+1, temp, ans, nums);
-        
-        temp.pop_back();
-
-        //increment idx until you get different value for this size subset
-        while(idx < nums.size() - 1 && nums[idx] == nums[idx+1]) idx++;
-
-       
-        solve(idx + 1,temp, ans, nums);
 
     }
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
