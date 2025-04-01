@@ -1,30 +1,36 @@
 class Solution {
 public:
-    void validCandidates(int i, vector<int>& candidates, int target, vector<int>& temp, vector<vector<int>>& ans)
+    void solve(int idx, vector<int>& nums, int target, vector<int>& temp, set<vector<int>>& ans)
     {
         if(target == 0)
         {
-            ans.push_back(temp);
+            ans.insert(temp);
             return;
         }
-        if(i == candidates.size()) return;  
-        //pick
-        
-        if(target >= candidates[i])
+        if(idx < 0) return;
+
+        if(target >= nums[idx])
         {
-            temp.push_back(candidates[i]);
-            validCandidates(i+1, candidates, target - candidates[i], temp, ans);
+            temp.push_back(nums[idx]);
+            solve(idx-1, nums, target-nums[idx], temp, ans);
             temp.pop_back();
         }
-        while(i+1 < candidates.size() && candidates[i] == candidates[i+1]) i++;
-        //non pick
-        validCandidates(i+1, candidates, target, temp, ans);
+
+        while(idx > 0 && nums[idx] == nums[idx-1]) idx--;
+        
+        solve(idx-1, nums, target, temp, ans);
+
     }
     vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-        vector<int> ds;
+        int n=candidates.size();
+        int sum = 0;
+        vector<int> temp;
+        set<vector<int>> ans;
         sort(candidates.begin(), candidates.end());
-        vector<vector<int>> ans;
-        validCandidates(0,candidates,target,ds, ans);
-        return ans;
+
+        solve(n-1, candidates, target, temp, ans);
+
+        vector<vector<int>> res(ans.begin(), ans.end());
+        return res;
     }
 };
